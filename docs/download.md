@@ -2,7 +2,7 @@ You can download the available kube-ipam binary package files <a href="https://g
 
 <br>
 
-![kube-ipam](docs/images/download-this-file.jpg)
+![kube-ipam](docs/images/download-this-file.png)
 
 <br>
 
