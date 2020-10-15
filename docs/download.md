@@ -6,6 +6,8 @@ You can download the available kube-ipam binary package files <a href="https://g
 
 <br>
 
+You can also download it by executing the following command:
+
 ```
 wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.1/kube-ipam-x86.tgz
 ```
