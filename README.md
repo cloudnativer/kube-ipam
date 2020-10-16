@@ -117,11 +117,12 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
-          containerPort: 80
-	  
+          containerPort: 80  
 ---
 
 ```
+At present, Kube-ipam only supports the fixed IPv4 address, and we will provide the fixed IPv6 address function in the future.
+
 
 ## 3.2  Create a fixed IP pod
 
@@ -136,6 +137,7 @@ Use the `kubectl apply` command to create a fixed IP pod:
 
 ```
 At this point, the fixed-ip-test-6d9b74fd4d-dbbsd is fixed to 10.188.0.216.
+
 
 ## 3.3  After rescheduling, the pod IP remains unchanged
 
