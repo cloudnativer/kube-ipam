@@ -17,7 +17,7 @@ mv kube-ipam /opt/cni/bin/kube-ipam
 
 ## 2.1  Configure IP subnet and etcd storage
 
-Note that the key `ranges` is a list of range sets. That is to say, the length of the top-level array is the number of addresses returned. The second-level array is a set of subnets to use as a pool of possible addresses.You can configure the etcd address and certificate to be stored in kubernetes pod IP address in `etcdConfig` parameter.
+The IP subnet information of pod is set by `subnet` parameter, and the gateway of pod is set by `gateway` parameter.You can configure the etcd address and certificate to be stored in kubernetes pod IP address in `etcdConfig` parameter.
 
 Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
@@ -121,7 +121,7 @@ spec:
 ---
 
 ```
-At present, Kube-ipam only supports the fixed IPv4 address, and we will provide the fixed IPv6 address function in the future.
+Note that at present, Kube-ipam only supports the fixed IPv4 address, and we will provide the fixed IPv6 address function in the future.
 
 
 ## 3.2  Create a fixed IP pod
