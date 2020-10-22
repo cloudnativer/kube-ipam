@@ -118,21 +118,19 @@ func cmdAdd(args *skel.CmdArgs) error {
                 requestedIPs[ip.String()] = ip
         }
 
-	//适用于podIp为多个ip地址的时候，将podIp切分后转换为podIpArray数组
+	//It is applicable to the case that the podIp is of multiple IP addresses, and the podIp is split and converted into a podIpArray array.
 	//podIpArray := strings.Split(podIp, `,`)
 
         if podIp != "" {
 
                 // Check to see if there are any custom IPs requested.
                 var ipConf *current.IPConfig
-
-		//代码还需优化
 		podNetmaskArray := strings.Split(podNetmask, `.`)
 		podNetmask0,_ := strconv.Atoi(podNetmaskArray[0])
 		podNetmask1,_ := strconv.Atoi(podNetmaskArray[1])
                 podNetmask2,_ := strconv.Atoi(podNetmaskArray[2])
                 podNetmask3,_ := strconv.Atoi(podNetmaskArray[3])
-
+		
                 ipConf = &current.IPConfig{
                         Version: "4",
                         Address: net.IPNet{
