@@ -79,7 +79,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 ## 3.1  Fixed pod IP configuration
 The fixed allocation of pod IP address can be realized by configuring `kube-ipam.ip`, `kube-ipam.netmask` and `kube-ipam.gateway` parameters in annotations.
 <br>
-In `/etc/cni/net.d/1-kube-ipam.conf`,The range of the pod IP address is set in `rangestart` and `rangeend`.If you need to fix the pod IP address, please pay attention to `kube-ipam.ip` try not to set it to this range.
+In `/etc/cni/net.d/1-kube-ipam.conf`,The range of the pod IP address is set in `rangestart` and `rangeend`.But if you need to keep the pod IP address fixed, please do not set the value of `kube-ipam.ip` within this range.
 <br>
 Edit `fixed-ip-test-Deployment.yaml` , which is used to create a fixed IP pod:
 
