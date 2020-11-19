@@ -8,6 +8,6 @@ git clone https://github.com/cloudnativer/kube-ipam.git
 
 Then use `go build` to compile:
 ```
-go build -o kube-install
+go build -o kube-ipam
 ```
 
