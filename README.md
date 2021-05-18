@@ -101,11 +101,11 @@ spec:
       maxUnavailable: 1
   selector:
     matchLabels:
-      k8s-app: housj-test
+      k8s-app: cloudnativer-test
   template:
     metadata:
       labels:
-        k8s-app: housj-test
+        k8s-app: cloudnativer-test
       annotations:
         kube-ipam.ip: "10.188.0.216"
         kube-ipam.netmask: "255.255.0.0"
