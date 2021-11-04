@@ -48,7 +48,7 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 创建flanneld所需的subnet网段
 
 ```
-# etcdctl --endpoints=https://192.168.122.11:2379,https://192.168.122.12:2379,https://192.168.122.13:2379  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem --cert-file=/etc/kubernetes/ssl/kubernetes.pem --key-file=/etc/kubernetes/ssl/kubernetes-key.pem set /kubernetes/network/config '{"Network":"10.244.0.0/16", "SubnetLen":24, "Backend":{"Type":"vxlan"}}'
+# etcdctl --endpoints=https://192.168.1.11:2379,https://192.168.1.12:2379,https://192.168.1.13:2379  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem --cert-file=/etc/kubernetes/ssl/kubernetes.pem --key-file=/etc/kubernetes/ssl/kubernetes-key.pem set /kubernetes/network/config '{"Network":"10.244.0.0/16", "SubnetLen":24, "Backend":{"Type":"vxlan"}}'
 # wget https://github.com/flannel-io/flannel/releases/download/v0.11.0/flannel-v0.11.0-linux-amd64.tar.gz
 # tar -zxvf flannel-v0.11.0-linux-amd64.tar.gz -C /opt/cni/bin/
 ```
@@ -71,9 +71,9 @@ ExecStart=/opt/cni/bin/flanneld \
  -etcd-cafile=/etc/kubernetes/ssl/k8s-root-ca.pem \
  -etcd-certfile=/etc/kubernetes/ssl/kubernetes.pem \
  -etcd-keyfile=/etc/kubernetes/ssl/kubernetes-key.pem \
- -etcd-endpoints=https://192.168.122.11:2379,https://192.168.122.12:2379,https://192.168.122.13:2379 \
+ -etcd-endpoints=https://192.168.1.11:2379,https://192.168.1.12:2379,https://192.168.1.13:2379 \
  -etcd-prefix=/kubernetes/network \
- -iface=192.168.122.12 \
+ -iface=192.168.1.12 \
  -ip-masq
 ExecStartPost=/usr/local/bin/mk-docker-opts.sh -k DOCKER_NETWORK_OPTIONS -d /run/flannel/docker
 Restart=always
@@ -163,7 +163,7 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
                 "type": "kube-ipam",
                 "kubeConfig": "/etc/kubernetes/ssl/kube.kubeconfig",
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.122.11:2379",
+                        "etcdURL": "https://192.168.1.11:2379",
                         "etcdCertFile": "/etc/kubernetes/ssl/kubernetes.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/kubernetes-key.pem",
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/k8s-root-ca.pem"
@@ -228,7 +228,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: database-1c
-        image: 192.168.122.12:5000/db:v1.0
+        image: 192.168.1.12:5000/db:v1.0
         resources: {}
 
 ---
@@ -254,7 +254,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: database-2c
-        image: 192.168.122.12:5000/db:v1.0
+        image: 192.168.1.12:5000/db:v1.0
         resources: {} 
 ```
 
@@ -267,10 +267,10 @@ statefulset.apps/database created
 # 
 # kubectl get pod -o wide                
 NAME                   READY   STATUS    RESTARTS   AGE     IP            NODE           
-database-1-0           1/1     Running   0          2m5s    10.244.69.7   192.168.122.13 
-database-2-0           1/1     Running   0          2m5s    10.244.5.5    192.168.122.12 
-web-5fd8684df7-8c7zb   1/1     Running   0          3h17m   10.244.71.8   192.168.122.14 
-web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.168.122.14 
+database-1-0           1/1     Running   0          2m5s    10.244.69.7   192.168.1.13 
+database-2-0           1/1     Running   0          2m5s    10.244.5.5    192.168.1.12 
+web-5fd8684df7-8c7zb   1/1     Running   0          3h17m   10.244.71.8   192.168.1.14 
+web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.168.1.14 
 #
 ```
 
@@ -301,7 +301,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: 192.168.122.12:5000/nginx:1.7.9
+      - image: 192.168.1.12:5000/nginx:1.7.9
         imagePullPolicy: IfNotPresent
         name: web-c
         ports:
@@ -320,8 +320,8 @@ deployment.apps/web created
 # 
 # kubectl get pod -o wide 
 NAME                   READY   STATUS    RESTARTS   AGE   IP            NODE            
-web-5fd8684df7-8c7zb   1/1     Running   0          5s    10.244.71.8   192.168.122.14  
-web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.122.14  
+web-5fd8684df7-8c7zb   1/1     Running   0          5s    10.244.71.8   192.168.1.14  
+web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.1.14  
 #
 ```
 
@@ -411,7 +411,7 @@ ingress.networking.k8s.io/web-ingress created
 
 ```
 #
-# curl http://192.168.122.12:18370
+# curl http://192.168.1.12:18370
 <!DOCTYPE html>
 <html>
 <head>
@@ -555,10 +555,10 @@ pod "database-2-0" deleted
 #
 # kubectl get pod -o wide        
 NAME                   READY   STATUS              RESTARTS   AGE     IP            NODE             
-database-1-0           1/1     Running             0          20m     10.244.69.7   192.168.122.13   
-database-2-0           0/1     ContainerCreating   0          1s      <none>        192.168.122.12   
-web-5fd8684df7-8c7zb   1/1     Running             0          3h35m   10.244.71.8   192.168.122.14   
-web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.9   192.168.122.14   
+database-1-0           1/1     Running             0          20m     10.244.69.7   192.168.1.13   
+database-2-0           0/1     ContainerCreating   0          1s      <none>        192.168.1.12   
+web-5fd8684df7-8c7zb   1/1     Running             0          3h35m   10.244.71.8   192.168.1.14   
+web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.9   192.168.1.14   
 # 
 ```
 
@@ -571,10 +571,10 @@ web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.
 #
 # kubectl get pod -o wide 
 NAME                   READY   STATUS    RESTARTS   AGE     IP            NODE             
-database-1-0           1/1     Running   0          20m     10.244.69.7   192.168.122.13   
-database-2-0           1/1     Running   0          4s      10.244.5.6    192.168.122.12   
-web-5fd8684df7-8c7zb   1/1     Running   0          3h35m   10.244.71.8   192.168.122.14   
-web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.168.122.14   
+database-1-0           1/1     Running   0          20m     10.244.69.7   192.168.1.13   
+database-2-0           1/1     Running   0          4s      10.244.5.6    192.168.1.12   
+web-5fd8684df7-8c7zb   1/1     Running   0          3h35m   10.244.71.8   192.168.1.14   
+web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.168.1.14   
 #
 ```
 
@@ -622,3 +622,4 @@ round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 
 
 
+192.168.1.
