@@ -9,6 +9,7 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">中文文档</a>
 
 <br>
+<br>
 
 # 1  Install kube-ipam：
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
@@ -16,6 +17,9 @@ kube-ipam binary program files can be obtained by <a href="docs/download.md">dow
 tar -zxvf kube-ipam-x86.tgz
 mv kube-ipam /opt/cni/bin/kube-ipam
 ```
+
+<br>
+<br>
 
 # 2  /etc/cni/net.d network configuration
 
@@ -157,6 +161,7 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
 
 ```
 At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
+
 <br>
 <br>
 
@@ -183,7 +188,6 @@ Users can access web services through ingress or service. The web pod can access
 # [5] How to Contribute
 
 If you have problems in use, <a href="https://github.com/cloudnativer/kube-ipam/issues">you can click here submit issues to us</a>, or fork it and submit PR.
-<br>
 
 ```
 # git clone your-fork-code
