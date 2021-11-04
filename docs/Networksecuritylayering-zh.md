@@ -95,8 +95,8 @@ RequiredBy=docker.service
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
 ```
-tar -zxvf kube-ipam-x86.tgz
-mv kube-ipam /opt/cni/bin/kube-ipam
+# tar -zxvf kube-ipam-x86.tgz
+# mv kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
