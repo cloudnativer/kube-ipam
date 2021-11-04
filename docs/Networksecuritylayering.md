@@ -73,7 +73,6 @@ ExecStart=/opt/cni/bin/flanneld \
  -etcd-keyfile=/etc/kubernetes/ssl/kubernetes-key.pem \
  -etcd-endpoints=https://192.168.1.11:2379,https://192.168.1.12:2379,https://192.168.1.13:2379 \
  -etcd-prefix=/kubernetes/network \
- -iface=192.168.1.12 \
  -ip-masq
 ExecStartPost=/usr/local/bin/mk-docker-opts.sh -k DOCKER_NETWORK_OPTIONS -d /run/flannel/docker
 Restart=always
