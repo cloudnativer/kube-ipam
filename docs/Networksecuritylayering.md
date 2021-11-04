@@ -33,7 +33,8 @@ The figure above shows that each Pod has 2 interfaces: eth0 and net1. Eth0 serve
 <br>
 
 ## Install cni plugin and flannel
-If you are using k8s installed by kube-install, then these two steps can be omitted:
+
+<br>
 
 ### Install cni plugin
 
@@ -86,6 +87,9 @@ RequiredBy=docker.service
 
 <br>
 
+Notice: If you are using kubernetes cluster installed by kube-install, then these two steps can be omitted。
+
+<br>
 
 ## Install kube-ipam
 
