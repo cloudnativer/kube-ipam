@@ -95,8 +95,8 @@ Notice: If you are using kubernetes cluster installed by <a href="https://github
 
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
-tar -zxvf kube-ipam-x86.tgz
-mv kube-ipam /opt/cni/bin/kube-ipam
+# tar -zxvf kube-ipam-x86.tgz
+# mv kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
