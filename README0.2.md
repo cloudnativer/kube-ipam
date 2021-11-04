@@ -6,6 +6,10 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
+Switch Languages: <a href="README0.7.md">English Documents</a> | <a href="README0.7-zh.md">中文文档</a>
+
+<br>
+
 # 1  Install kube-ipam：
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
