@@ -9,6 +9,7 @@
 
 ## kube-ipam与Multus概述
 Kube-ipam支持给kubernetes集群中的Pod固定IP地址。一些场景往往对IP地址有依赖，需要使用固定IP地址的Pod，可以使用kube-ipam轻松解决这类问题。例如，mysql主从架构的时候，主database与从database之间的同步；例如keepalived做集群HA的时候，两个节点之间检测通信等；例如某些安全防护设备，需要基于IP地址进行网络安全访问策略限制的场景等。
+<br>
 Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
 
 <br>
@@ -34,13 +35,15 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 ## 安装cni plugin和flannel
 如果你使用的是kube-install安装的k8s，那么这两步可以省略：
 
-安装cni plugin
+### 安装cni plugin
+
 ```
 # wget https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
 # tar -zxvf cni-plugins-linux-amd64-v0.9.1.tgz -C /opt/cni/bin/
 ```
 
-安装flanneld
+### 安装flanneld
+
 创建flanneld所需的subnet网段
 
 ```
@@ -83,9 +86,21 @@ RequiredBy=docker.service
 
 <br>
 
+## 安装kube-ipam
+
+你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
+
+```
+tar -zxvf kube-ipam-x86.tgz
+mv kube-ipam /opt/cni/bin/kube-ipam
+```
+
+<br>
+
+
 ## 安装multus-cni
 
-去multus-cni下载包：
+下载multus-cni包：
  
 ```
 # wget https://github.com/k8snetworkplumbingwg/multus-cni/releases/download/v3.8/multus-cni_3.8_linux_amd64.tar.gz
@@ -310,7 +325,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.
 
 ## 创建service或ingress
 
-用户可以通过web区域网络，通过ingress或service来访问到web服务
+用户可以通过web区域网络，通过ingress或service来访问到web服务。
 
 给web Pod配置service：
 
