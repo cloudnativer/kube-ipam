@@ -30,8 +30,8 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
 ```
-tar -zxvf kube-ipam-x86.tgz
-mv kube-ipam /opt/cni/bin/kube-ipam
+# tar -zxvf kube-ipam-x86.tgz
+# mv kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
@@ -47,7 +47,7 @@ mv kube-ipam /opt/cni/bin/kube-ipam
 编辑所有kubernetes node主机的 `/etc/cni/net.d/1-kube-ipam.conf` 文件.
 
 ```
-
+# cat /etc/cni/net.d/1-kube-ipam.conf
 {
         "cniVersion":"0.3.1",
         "name": "k8snetwork",
