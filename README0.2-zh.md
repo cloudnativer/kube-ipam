@@ -1,4 +1,4 @@
-The IP address of pod can be fixed, and kubernetes dynamic IP network allocation management plug-in based on etcd distributed storage is used.kube-ipam allocates ip addresses out of a set of address ranges.It stores the state locally on the remote etcd, therefore ensuring uniqueness of IP addresses in a cluster.Optionally, it can include a DNS configuration from a resolv.conf file on the host.
+Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，确保集群中IP地址的唯一性。Kube-ipam支持给kubernetes集群中的Pod固定IP地址，同时支持resolv.conf的DNS配置。一些场景往往对IP地址有依赖，需要使用固定IP地址的Pod，可以使用kube-ipam轻松解决这类问题。例如，mysql主从架构的时候，主database与从database之间的同步；例如keepalived做集群HA的时候，两个节点之间检测通信等；例如某些安全防护设备，需要基于IP地址进行网络安全访问策略限制的场景等。
 
 <br>
 
@@ -6,20 +6,25 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
-# 1  Install kube-ipam：
-kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
+切换语言: <a href="README0.7.md">English Documents</a> | <a href="README0.7-zh.md">中文文档</a>
+
+<br>
+
+# 1  安装kube-ipam：
+你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
+
 ```
 tar -zxvf kube-ipam-x86.tgz
 mv kube-ipam /opt/cni/bin/kube-ipam
 ```
 
-# 2  /etc/cni/net.d network configuration
+# 2  /etc/cni/net.d配置
 
-## 2.1  Configure IP subnet and etcd storage
+## 2.1  子网址和etcd配置
 
-The IP subnet information of pod is set by `subnet` parameter, and the gateway of pod is set by `gateway` parameter.You can configure the etcd address and certificate to be stored in kubernetes pod IP address in `etcdConfig` parameter.
+你可以通过 `subnet` 参数设置IP子网信息，通过 `gateway` 设置网关信心。你可以通过 `etcdConfig` 配置etcd的证书和endpoint地址。
 
-Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
+编辑所有kubernetes node主机的 `/etc/cni/net.d/1-kube-ipam.conf` 文件.
 
 ```
 
@@ -31,11 +36,12 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
         "ipam": {
                 "name": "kube-subnet",
                 "type": "kube-ipam",
+		"kubeConfig": "/etc/kubernetes/pki/kubectl.kubeconfig"
                 "etcdConfig": {
                         "etcdURL": "https://192.168.1.50:2379",
-                        "etcdCertFile": "/etc/kubernetes/ssl/etcd.pem",
-                        "etcdKeyFile": "/etc/kubernetes/ssl/etcd-key.pem",
-                        "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/ca.pem"
+                        "etcdCertFile": "/etc/kubernetes/pki/etcd.pem",
+                        "etcdKeyFile": "/etc/kubernetes/pki/etcd-key.pem",
+                        "etcdTrustedCAFileFile": "/etc/kubernetes/pki/ca.pem"
                 },
                 "subnet": "10.188.0.0/16",
                 "rangeStart": "10.188.0.10",
@@ -53,35 +59,37 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
 
 
-## 2.2  Configuration parameter description
+## 2.2  配置参数说明
 
-* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, flannel, etc.
-* `routes` (string, optional): list of routes to add to the container namespace. Each route is a dictionary with "dst" and optional "gw" fields. If "gw" is omitted, value of "gateway" will be used.
-* `resolvConf` (string, optional): Path to a `resolv.conf` on the host to parse and return as the DNS configuration
+* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge等。
+* `routes` (string, optional): 要添加到容器命名空间的路由列表。 每个路由都是一个带有“dst”和可选“gw”字段。 如果省略“gw”，将使用“网关”的值。
+* `resolvConf` (string, optional): 主机上要解析并作为 DNS 配置返回的 `resolv.conf` 文件路径。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
-	* `subnet` (string, required): CIDR block to allocate out of.
-	* `rangeStart` (string, optional): IP inside of "subnet" from which to start allocating addresses. Defaults to ".2" IP inside of the "subnet" block.
-	* `rangeEnd` (string, optional): IP inside of "subnet" with which to end allocating addresses. Defaults to ".254" IP inside of the "subnet" block for ipv4, ".255" for IPv6
-	* `gateway` (string, optional): IP inside of "subnet" to designate as the gateway. Defaults to ".1" IP inside of the "subnet" block.
-* `etcdConfig`, an object of etcd address info
-  * `etcdURL` (string, required): The URL of etcd
-  * `etcdCertFile` (string, required): The cert file of etcd
-  * `etcdKeyFile` (string, required): The key file of etcd
-  * `etcdTrustedCAFileFile` (string, required): The ca file of etcd
+	* `subnet` (string, required): 要分配出去的 CIDR 块。
+	* `rangeStart` (string, optional): 从`subnet`子网内开始分配的IP地址，默认为`subnet`子网段内的“.2”这个IP地址。
+	* `rangeEnd` (string, optional): 从`subnet`子网内结束分配的IP地址，默认为`subnet`子网段内的“.254”这个IP地址。
+	* `gateway` (string, optional): 从`subnet`子网内分配的网关IP地址，默认为`subnet`子网段内的“.1”这个IP地址。
+* `etcdConfig`：etcd 地址信息的对象
+  * `etcdURL` (string, required): etcd的endpoint URL地址。
+  * `etcdCertFile` (string, required): etcd的cert文件。
+  * `etcdKeyFile` (string, required): etcd的key文件。
+  * `etcdTrustedCAFileFile` (string, required): etcd的ca文件。
 
 
 <br>
 <br>
 
 
-# 3  Kubernetes fixed pod IP address
+# 3  Kubernetes固定IP容器方法
 
-## 3.1  Fixed pod IP configuration
-The fixed allocation of pod IP address can be realized by configuring `kube-ipam.ip`, `kube-ipam.netmask` and `kube-ipam.gateway` parameters in annotations.
+## 3.1  固定IP地址配置
+pod IP地址的固定分配可以通过在pod的`annotations`中配置`kube-ipam.ip`、`kube-ipam.netmask`和`kube-ipam.gateway`参数来实现。
 <br>
-In `/etc/cni/net.d/1-kube-ipam.conf`,The range of the pod IP address is set in `rangestart` and `rangeend`.But if you need to keep the pod IP address fixed, please do not set the value of `kube-ipam.ip` within this range.
+在`/etc/cni/net.d/1-kube-ipam.conf`中，随机IP地址的范围在`rangestart`和`rangeend`中设置。没有设置在`rangestart`和`rangeend`中IP地址段，可以手工分配给固定IP的容器。
 <br>
-Edit `fixed-ip-test-Deployment.yaml` , which is used to create a fixed IP pod:
+换句话说，如果你需要保持pod的IP地址固定不变， 请不要将 `kube-ipam.ip` 的值设置在此`rangestart`和`rangeend`范围内。
+<br>
+新建一个`fixed-ip-test-Deployment.yaml` ，用来创建一个固定IP的Pod:
 
 ```
 # cat fixed-ip-test-Deployment.yaml
@@ -121,12 +129,13 @@ spec:
 ---
 
 ```
-Note that at present, Kube-ipam only supports the fixed IPv4 address, and we will provide the fixed IPv6 address function in the future.
+
+在本例中，我们可以使用10.188.0.0/16网段中，除了10.188.0.10～10.188.0.200之外的IP地址来分配给Pod。
 
 
-## 3.2  Create a fixed IP pod
+## 3.2  创建一个固定IP的Pod
 
-Use the `kubectl apply` command to create a fixed IP pod:
+使用 `kubectl apply -f` 命令来创建固定IP的Pod:
 
 ```
 # kubectl apply -f fixed-ip-test-Deployment.yaml
@@ -136,12 +145,12 @@ Use the `kubectl apply` command to create a fixed IP pod:
   fixed-ip-test-6d9b74fd4d-dbbsd   1/1     Running   0          2d23h   10.188.0.216   192.168.1.66
 
 ```
-At this point, the fixed-ip-test-6d9b74fd4d-dbbsd is fixed to 10.188.0.216.
+现在，这个fixed-ip-test-6d9b74fd4d-dbbsd这个Pod就被分配了一个固定不变的IP地址(10.188.0.216)。
 
 
-## 3.3  After rescheduling, the pod IP remains unchanged
+## 3.3  销毁重建Pod，IP保持固定不变
 
-Use the `kubectl delete` command to delete this pod, and kuberntes will automatically start a new fixed IP test pod:
+例如我们使用`kubectl delete`命令来删除上面这个Pod，kubernetes会自动重建一个新的Pod：
 
 ```
 # kubectl delete pod fixed-ip-test-6d9b74fd4d-dbbsd
@@ -151,7 +160,7 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
   fixed-ip-test-6d9b74fd4d-xjhek   1/1     Running   0          1h    10.188.0.216   192.168.1.66
 
 ```
-At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
+此时, 新启动的fixed-ip-test-6d9b74fd4d-xjhek这个Pod的IP地址依然是10.188.0.216。
 <br>
 
 
