@@ -108,7 +108,7 @@ RequiredBy=docker.service
 ## 创建CNI配置
 
 <br>
-为了保证环境的清洁，请执行如下命令删除worker上的任何已有的cni配置
+为了确保主机环境的干净，请执行如下命令删除kubernetes node主机上的已有的cni配置：
 
 ```
 # rm -rf /etc/cni/net.d/*
