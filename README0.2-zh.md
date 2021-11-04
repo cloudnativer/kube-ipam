@@ -9,6 +9,7 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 切换语言：<a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">中文文档</a>
 
 <br>
+<br>
 
 # [1]  安装kube-ipam：
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
@@ -17,6 +18,10 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 tar -zxvf kube-ipam-x86.tgz
 mv kube-ipam /opt/cni/bin/kube-ipam
 ```
+
+<br>
+<br>
+
 
 # [2] /etc/cni/net.d配置
 
@@ -161,6 +166,7 @@ spec:
 
 ```
 此时, 新启动的fixed-ip-test-6d9b74fd4d-xjhek这个Pod的IP地址依然是10.188.0.216。
+
 <br>
 <br>
 
@@ -185,7 +191,6 @@ spec:
 # [5] 欢迎提交Issues和PR
 
 如果你在使用过程中遇到问题，可以点击<a href="https://github.com/cloudnativer/kube-ipam/issues">https://github.com/cloudnativer/kube-install/issues</a>向我们提交Issues，也可以Fork源代码，然后尝试修复BUG之后，向我们提交PR。<br>
-<br>
 
 ```
 # git clone your-fork-code
