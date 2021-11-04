@@ -184,7 +184,7 @@ spec:
 
 # [5] 欢迎提交Issues和PR
 
-如果你在使用过程中遇到问题，可以点击<a href="https://github.com/cloudnativer/kube-install/issues">https://github.com/cloudnativer/kube-install/issues</a>向我们提交Issues，也可以Fork源代码，然后尝试修复BUG之后，向我们提交PR。<br>
+如果你在使用过程中遇到问题，可以点击<a href="https://github.com/cloudnativer/kube-ipam/issues">https://github.com/cloudnativer/kube-install/issues</a>向我们提交Issues，也可以Fork源代码，然后尝试修复BUG之后，向我们提交PR。<br>
 <br>
 
 ```
