@@ -33,7 +33,8 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 <br>
 
 ## 安装cni plugin和flannel
-如果你使用的是kube-install安装的k8s，那么这两步可以省略：
+
+<br>
 
 ### 安装cni plugin
 
@@ -85,6 +86,9 @@ RequiredBy=docker.service
 ```
 
 <br>
+
+说明：如果你是使用的是<a href="https://github.com/cloudnativer/kube-install">kube-install</a>安装的kubernetes集群，那么安装cni plugin和flannel这两步可以省略。
+
 
 ## 安装kube-ipam
 
