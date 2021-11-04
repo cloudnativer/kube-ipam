@@ -27,7 +27,7 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 <br>
 
 
-# 2  Install kube-ipam：
+# [2]  Install kube-ipam：
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
 tar -zxvf kube-ipam-x86.tgz
@@ -37,7 +37,7 @@ mv kube-ipam /opt/cni/bin/kube-ipam
 <br>
 <br>
 
-# 3  /etc/cni/net.d network configuration
+# [3]  /etc/cni/net.d network configuration
 
 ## 3.1  Configure IP subnet and etcd storage
 
@@ -99,7 +99,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 <br>
 
 
-# 4  Kubernetes fixed pod IP address
+# [4]  Kubernetes fixed pod IP address
 
 ## 4.1  Fixed pod IP configuration
 The fixed allocation of pod IP address can be realized by configuring `kube-ipam.ip`, `kube-ipam.netmask` and `kube-ipam.gateway` parameters in annotations.
