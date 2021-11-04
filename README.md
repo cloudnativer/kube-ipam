@@ -6,6 +6,10 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
+Switch Languages: <a href="README0.7.md">English Documents</a> | <a href="README0.7-zh.md">中文文档</a>
+
+<br>
+
 # 1  Install kube-ipam：
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
@@ -33,6 +37,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
                 "type": "kube-ipam",
                 "etcdConfig": {
                         "etcdURL": "https://192.168.1.50:2379",
+			"kubeConfig": "/etc/kubernetes/pki/kubectl.kubeconfig"
                         "etcdCertFile": "/etc/kubernetes/ssl/etcd.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/etcd-key.pem",
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/ca.pem"
@@ -153,5 +158,48 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
 ```
 At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
 <br>
+<br>
+
+# [4] Realize Web and database hierarchical network security access architecture
+
+<br>
+Based on `kube-ipam` and `Multus`, we can implement a hierarchical network security access architecture for Web and database, allowing a Pod to support multiple network interfaces such as random IP and fixed IP at the same time. This deployment method is conducive to security personnel to isolate multiple network areas such as application networks and databases from each other, and effectively control the container cluster network architecture.
+
+<br>
+
+![kube-ipam](docs/images/Networksecuritylayering.jpg)
+
+<br>
+
+The figure above shows that each Pod has 2 interfaces: eth0 and net1. Eth0 serves as the network interface for external users to access the web pod; and net1 is an additional container network card that serves as the internal network communication from the web Pod to the database Pod.
+
+<br>
+Users can access web services through ingress or service. The web pod can access the database service with a fixed IP address through the database area network. The database Pods of the Database area network can communicate with each other in the cluster through a fixed IP address.
+<a href="docs/Networksecuritylayering-zh.md">Please click here to view the installation and deployment process</a>。
+
+<br>
+<br>
+
+# [5] How to Contribute
+
+If you have problems in use, <a href="https://github.com/cloudnativer/kube-install/issues">you can click here submit issues to us</a>, or fork it and submit PR.
+<br>
+
+```
+# git clone your-fork-code
+# git checkout -b your-new-branch
+# git commit -am "Fix bug or add some feature"
+# git push origin your-new-branch
+```
+<br>
+Welcome to submit issues or PR to us.
+<br>
+Thank you to every contributor!
+
+<br>
+<br>
+<br>
+
+
 
 
