@@ -30,8 +30,8 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 # [2]  Install kube-ipam：
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
-tar -zxvf kube-ipam-x86.tgz
-mv kube-ipam /opt/cni/bin/kube-ipam
+# tar -zxvf kube-ipam-x86.tgz
+# mv kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
@@ -46,7 +46,7 @@ The IP subnet information of pod is set by `subnet` parameter, and the gateway o
 Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
 ```
-
+# cat /etc/cni/net.d/1-kube-ipam.conf
 {
         "cniVersion":"0.3.1",
         "name": "k8snetwork",
