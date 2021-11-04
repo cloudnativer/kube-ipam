@@ -1,11 +1,17 @@
 # 基于kube-ipam与Multus实现Web和数据库分层网络安全访问架构
 
-
+<br>
+<br>
 
 # 基本概况
+
+<br>
+
 ## kube-ipam与Multus概述
 Kube-ipam支持给kubernetes集群中的Pod固定IP地址。一些场景往往对IP地址有依赖，需要使用固定IP地址的Pod，可以使用kube-ipam轻松解决这类问题。例如，mysql主从架构的时候，主database与从database之间的同步；例如keepalived做集群HA的时候，两个节点之间检测通信等；例如某些安全防护设备，需要基于IP地址进行网络安全访问策略限制的场景等。
 Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
+
+<br>
 
 ## 网络分层架构设计
  
@@ -17,9 +23,13 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 
 上图中显示了每个Pod具有2个接口：eth0、net1。eth0作为外界用户访问web pod的网络接口；而net1是附加的容器网卡，作为web Pod到database Pod的内部网络通信。
 
+<br>
+<br>
 
 
 # 安装CNI插件
+
+<br>
 
 ## 安装cni plugin和flannel
 如果你使用的是kube-install安装的k8s，那么这两步可以省略：
@@ -29,7 +39,6 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 # wget https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
 # tar -zxvf cni-plugins-linux-amd64-v0.9.1.tgz -C /opt/cni/bin/
 ```
-
 
 安装flanneld
 创建flanneld所需的subnet网段
@@ -72,7 +81,7 @@ WantedBy=multi-user.target
 RequiredBy=docker.service
 ```
 
-
+<br>
 
 ## 安装multus-cni
 
@@ -89,9 +98,16 @@ RequiredBy=docker.service
 # mv multus-cni_3.8_linux_amd64/multus-cni /opt/cni/bin/
 ```
 
+<br>
+<br>
 
 # 配置与创建Pod
+
+<br>
+
 ## 创建CNI配置
+
+<br>
 为了保证环境的清洁，请执行如下命令删除worker上的任何已有的cni配置
 
 ```
@@ -154,6 +170,7 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
 # systemctl restart kubelet
 ```
 
+<br>
 
 ## 创建Database Pod
 
@@ -238,7 +255,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.16
 #
 ```
 
-
+<br>
 
 ## 创建Web Pod
 
@@ -289,6 +306,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.
 #
 ```
 
+<br>
 
 ## 创建service或ingress
 
@@ -356,10 +374,16 @@ ingress.networking.k8s.io/web-ingress created
 #
 ```
 
+<br>
+<br>
 
 # 验证分层网络访问
 
+<br>
+
 此时，用户可以通过ingress或service来访问到web服务。web pod可以通过database区域网络，访问固定IP地址的database服务。Database区域网络的database Pod可以互相通过固定IP地址进行集群的通信操作。
+
+<br>
 
 ## 用户通过service访问Web
 
@@ -397,7 +421,7 @@ Commercial support is available at
 #
 ```
 
-
+<br>
 
 ## Web Pod通过固定IP访问Database
 
@@ -437,6 +461,7 @@ PING 10.188.0.219 (10.188.0.219): 48 data bytes
 round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 ```
 
+<br>
 
 ## database区域的Pod通过固定IP互访
 
@@ -491,11 +516,16 @@ PING 10.188.0.218 (10.188.0.218): 48 data bytes
 round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 ```
 
-
+<br>
+<br>
 
 # 验证固定IP通信
 
+<br>
+
 上文中使用kube-ipam进行固定IP的容器在删除、漂移、重启之后，重新起来的容器依然保持原有的IP地址固定不变。
+
+<br>
 
 ## 删除一个database Pod
 
@@ -512,6 +542,8 @@ web-5fd8684df7-8c7zb   1/1     Running             0          3h35m   10.244.71.
 web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.9   192.168.122.14   
 # 
 ```
+
+<br>
 
 ## 重新启动Pod的IP地址不变
 
@@ -547,6 +579,8 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.16
 #
 ```
 
+<br>
+
 ## 验证容器可以正常访问
 
 使用Web Pod或其他Database Pod访问这个刚刚删除重建的database-2 Pod，可以正常访问：
@@ -565,8 +599,6 @@ PING 10.188.0.219 (10.188.0.219): 48 data bytes
 round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 #
 ```
-
-
 
 
 
