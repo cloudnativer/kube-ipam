@@ -87,7 +87,7 @@ RequiredBy=docker.service
 
 <br>
 
-Notice: If you are using kubernetes cluster installed by kube-install, then these two steps can be omitted。
+Notice: If you are using kubernetes cluster installed by <a href="https://github.com/cloudnativer/kube-install">kube-install</a>, then these two steps can be omitted。
 
 <br>
 
