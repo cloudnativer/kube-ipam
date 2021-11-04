@@ -175,14 +175,14 @@ The figure above shows that each Pod has 2 interfaces: eth0 and net1. Eth0 serve
 
 <br>
 Users can access web services through ingress or service. The web pod can access the database service with a fixed IP address through the database area network. The database Pods of the Database area network can communicate with each other in the cluster through a fixed IP address.
-<a href="docs/Networksecuritylayering-zh.md">Please click here to view the installation and deployment process</a>。
+<a href="docs/Networksecuritylayering.md">Please click here to view the installation and deployment process</a>。
 
 <br>
 <br>
 
 # [5] How to Contribute
 
-If you have problems in use, <a href="https://github.com/cloudnativer/kube-install/issues">you can click here submit issues to us</a>, or fork it and submit PR.
+If you have problems in use, <a href="https://github.com/cloudnativer/kube-ipam/issues">you can click here submit issues to us</a>, or fork it and submit PR.
 <br>
 
 ```
