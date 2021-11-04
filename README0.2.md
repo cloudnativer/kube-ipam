@@ -20,6 +20,7 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 ![kube-ipam](docs/images/kube-ipam02.jpg)
 
 <br>
+
 `Kube-ipam` implements kubernetes dynamic IP network allocation management based on etcd distributed storage, ensuring that Pods in the kubernetes cluster have fixed IP addresses. After using the kube-ipam configuration, the fixed-ip Pod in the above figure can still keep the original IP address fixed after being destroyed and rebuilt.
 
 
@@ -28,7 +29,8 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 
 
 # [2]  Install kube-ipam：
-kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
+
+`kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
 # tar -zxvf kube-ipam-x86.tgz
 # mv kube-ipam /opt/cni/bin/kube-ipam
