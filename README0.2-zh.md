@@ -168,7 +168,7 @@ spec:
 
 <br>
 
-我们可以基于kube-ipam与Multus实现Web和数据库分层网络安全访问架构，让一个Pod同时支持随机IP和固定IP等多个网络接口。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
+我们可以基于`kube-ipam`与`Multus`实现Web和数据库分层网络安全访问架构，让一个Pod同时支持随机IP和固定IP等多个网络接口。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
 <br>
 
 ![kube-ipam](docs/images/Networksecuritylayering.jpg)
@@ -179,7 +179,8 @@ spec:
 <br>
 用户可以通过ingress或service来访问到web服务。web pod可以通过database区域网络，访问固定IP地址的database服务。Database区域网络的database Pod可以互相通过固定IP地址进行集群的通信操作。<a href="docs/Networksecuritylayering-zh.md">安装与部署过程请点击这里查看</a>。
 
-
+<br>
+<br>
 
 # [5] 欢迎提交Issues和PR
 
