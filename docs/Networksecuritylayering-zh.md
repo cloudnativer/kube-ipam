@@ -11,7 +11,7 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
  
 <br>
 
-![kube-ipam](docs/images/Networksecuritylayering.jpg)
+![kube-ipam](images/Networksecuritylayering.jpg)
 
 <br>
 
