@@ -160,7 +160,7 @@ At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek
 <br>
 <br>
 
-# [4] 基于kube-ipam与Multus实现Web和数据库分层网络安全访问架构
+# [4] Realize Web and database hierarchical network security access architecture
 
 <br>
 Based on `kube-ipam` and `Multus`, we can implement a hierarchical network security access architecture for Web and database, allowing a Pod to support multiple network interfaces such as random IP and fixed IP at the same time. This deployment method is conducive to security personnel to isolate multiple network areas such as application networks and databases from each other, and effectively control the container cluster network architecture.
