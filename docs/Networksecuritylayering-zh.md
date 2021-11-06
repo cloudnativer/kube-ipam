@@ -3,18 +3,18 @@
 <br>
 <br>
 
-# 基本概况
+# [1] 基本概况
 
 <br>
 
-## kube-ipam与Multus概述
+## 1.1 kube-ipam与Multus概述
 Kube-ipam支持给kubernetes集群中的Pod固定IP地址。一些场景往往对IP地址有依赖，需要使用固定IP地址的Pod，可以使用kube-ipam轻松解决这类问题。例如，mysql主从架构的时候，主database与从database之间的同步；例如keepalived做集群HA的时候，两个节点之间检测通信等；例如某些安全防护设备，需要基于IP地址进行网络安全访问策略限制的场景等。
 <br>
 Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
 
 <br>
 
-## 网络分层架构设计
+## 1.2 网络分层架构设计
  
 <br>
 
@@ -28,11 +28,11 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 <br>
 
 
-# 安装CNI插件
+# [2] 安装CNI插件
 
 <br>
 
-## 安装cni plugin和flannel
+## 2.1 安装cni plugin和flannel
 
 <br>
 
@@ -104,7 +104,7 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 说明：如果你是使用的是<a href="https://github.com/cloudnativer/kube-install">kube-install</a>安装的kubernetes集群，那么安装cni plugin和flannel这两步可以省略。
 
 
-## 安装kube-ipam
+## 2.2 安装kube-ipam
 
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
@@ -116,7 +116,7 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 <br>
 
 
-## 安装multus-cni
+## 2.3 安装multus-cni
 
 下载multus-cni包：
  
@@ -134,11 +134,11 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 <br>
 <br>
 
-# 配置与创建Pod
+# [3] 配置与创建Pod
 
 <br>
 
-## 创建CNI配置
+## 3.1 创建CNI配置
 
 <br>
 为了确保主机环境的干净，请执行如下命令删除kubernetes node主机上的已有的cni配置：
@@ -205,7 +205,7 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
 
 <br>
 
-## 创建Database Pod
+## 3.2 创建Database Pod
 
 配置需要固定IP的数据容器
 
@@ -290,7 +290,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.16
 
 <br>
 
-## 创建Web Pod
+## 3.3 创建Web Pod
 
 配置不需要固定IP的web应用
 
@@ -341,7 +341,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.
 
 <br>
 
-## 创建service或ingress
+## 3.4 创建service或ingress
 
 用户可以通过web区域网络，通过ingress或service来访问到web服务。
 
@@ -410,7 +410,7 @@ ingress.networking.k8s.io/web-ingress created
 <br>
 <br>
 
-# 验证分层网络访问
+# [4] 验证分层网络访问
 
 <br>
 
@@ -418,7 +418,7 @@ ingress.networking.k8s.io/web-ingress created
 
 <br>
 
-## 用户通过service访问Web
+## 4.1 用户通过service访问Web
 
 通过ingress或service来访问到web服务
 
@@ -456,7 +456,7 @@ Commercial support is available at
 
 <br>
 
-## Web Pod通过固定IP访问Database
+## 4.2 Web Pod通过固定IP访问Database
 
 查看database-2 Pod的net1网卡，10.188.0.219为固定IP地址
 
@@ -496,7 +496,7 @@ round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 
 <br>
 
-## database区域的Pod通过固定IP互访
+## 4.3 database区域的Pod通过固定IP互访
 
 database区域网络内的database-1与database-2都拥有固定IP地址，两个数据库Pod之间可以互相通过固定IP进行集群的通信操作。例如，mysql主从架构的时候，主database-1与从database-2之间的同步。
 
@@ -552,7 +552,7 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 <br>
 <br>
 
-# 验证固定IP通信
+# [4] 验证固定IP通信
 
 <br>
 
@@ -560,7 +560,7 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 
 <br>
 
-## 删除一个database Pod
+## 4.1 删除一个database Pod
 
 ```
 #
@@ -578,7 +578,7 @@ web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.
 
 <br>
 
-## 重新启动Pod的IP地址不变
+## 4.2 重新启动Pod的IP地址不变
 
 
 ```
@@ -614,7 +614,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.16
 
 <br>
 
-## 验证容器可以正常访问
+## 4.3 验证容器可以正常访问
 
 使用Web Pod或其他Database Pod访问这个刚刚删除重建的database-2 Pod，可以正常访问：
 
