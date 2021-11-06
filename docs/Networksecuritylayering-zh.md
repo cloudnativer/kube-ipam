@@ -103,6 +103,7 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 
 说明：如果你是使用的是<a href="https://github.com/cloudnativer/kube-install">kube-install</a>安装的kubernetes集群，那么安装cni plugin和flannel这两步可以省略。
 
+<br>
 
 ## 2.2 安装kube-ipam
 
