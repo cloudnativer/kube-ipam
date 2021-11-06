@@ -192,7 +192,7 @@ spec:
 
 # [5] 查看日志信息
 
-查看`/var/log/kube-ipam.log`，可以获取`kube-ipam`的系统日志信息。
+查看kubernetes node主机上的`/var/log/kube-ipam.log`文件，可以获取`kube-ipam`的系统日志信息。
 
 <br>
 <br>
