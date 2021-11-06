@@ -3,18 +3,18 @@
 <br>
 <br>
 
-# Introduction
+# [1] Introduction
 
 <br>
 
-## Overview of kube-ipam and Multus
+## 1.1 Overview of kube-ipam and Multus
 Kube-ipam supports fixed IP addresses for Pods in the kubernetes cluster. Some scenarios often rely on IP addresses and need to use Pods with fixed IP addresses. You can use kube-ipam to easily solve this type of problem. For example, in the mysql master-slave architecture, the synchronization between the master database and the slave database; for example, when keepalived is doing cluster HA, the communication between the two nodes is detected; for example, some security protection equipment needs to be based on IP addresses for network security Scenarios restricted by access policies, etc.
 <br>
 Multus-CNI supports adding multiple network interfaces to Pods in the kubernetes environment at the same time. This deployment method is conducive to security personnel to isolate multiple network areas such as application networks and databases from each other, and effectively control the container cluster network architecture.
 
 <br>
 
-## Network layered architecture design
+## 1.2 Network layered architecture design
  
 <br>
 
@@ -28,11 +28,11 @@ The figure above shows that each Pod has 2 interfaces: eth0 and net1. Eth0 serve
 <br>
 
 
-# Install CNI plugin
+# [2] Install CNI plugin
 
 <br>
 
-## Install cni plugin and flannel
+## 2.1 Install cni plugin and flannel
 
 <br>
 
@@ -105,7 +105,7 @@ Notice: If you are using kubernetes cluster installed by <a href="https://github
 
 <br>
 
-## Install kube-ipam
+## 2.2 Install kube-ipam
 
 kube-ipam binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
@@ -116,7 +116,7 @@ kube-ipam binary program files can be obtained by <a href="docs/download.md">dow
 <br>
 
 
-## Install multus-cni
+## 2.3 Install multus-cni
 
 Download the multus-cni package:
  
@@ -134,11 +134,11 @@ Copy the decompressed binary file to the /opt/cni/bin directory of all Kubernete
 <br>
 <br>
 
-# Configure and create Pod
+# [3] Configure and create Pod
 
 <br>
 
-## Create CNI configuration
+## 3.1 Create CNI configuration
 
 <br>
 In order to ensure a clean host environment, please execute the following command to delete the existing cni configuration on the kubernetes node host:
@@ -205,7 +205,7 @@ Restart the kubelet service:
 
 <br>
 
-## Create Database Pod
+## 3.2 Create Database Pod
 
 Configure data containers that require a fixed IP: 
 
@@ -290,7 +290,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.16
 
 <br>
 
-## Create Web Pod
+## 3.3 Create Web Pod
 
 Configure web applications that do not require a fixed IP: 
 
@@ -341,7 +341,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.
 
 <br>
 
-## Create service or ingress
+## 3.4 Create service or ingress
 
 Users can access web services through ingress or service through the web area network. 
 
@@ -410,14 +410,14 @@ ingress.networking.k8s.io/web-ingress created
 <br>
 <br>
 
-# Verify hierarchical network access
+# [4] Verify hierarchical network access
 
 <br>
 
 At this point, the user can access the web service through ingress or service. The web pod can access the database service with a fixed IP address through the database area network. The database Pods of the Database area network can communicate with each other in the cluster through a fixed IP address.
 <br>
 
-## The user accesses the Web through the service
+## 4.1 The user accesses the Web through the service
 
 Access to web services through ingress or service
 
@@ -455,7 +455,7 @@ Commercial support is available at
 
 <br>
 
-## Web Pod accesses the database through a fixed IP
+## 4.2 Web Pod accesses the database through a fixed IP
 
 Check the net1 network card of database-2 Pod, 10.188.0.219 is the fixed IP address
 
@@ -495,7 +495,7 @@ round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 
 <br>
 
-## Pods in the database area communicate with each other through a fixed IP
+## 4.3 Pods in the database area communicate with each other through a fixed IP
 
 Both database-1 and database-2 in the database area network have fixed IP addresses, and the two database Pods can communicate with each other through a fixed IP cluster. For example, in the mysql master-slave architecture, the synchronization between the master database-1 and the slave database-2.
 
@@ -551,7 +551,7 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 <br>
 <br>
 
-# Verify fixed IP communication
+# [5] Verify fixed IP communication
 
 <br>
 
@@ -559,7 +559,7 @@ After the container that uses kube-ipam to fix the IP above is deleted, drifted,
 
 <br>
 
-## Delete a database Pod
+## 5.1 Delete a database Pod
 
 ```
 #
@@ -577,7 +577,7 @@ web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.
 
 <br>
 
-## Restart the Pod's IP address unchanged
+## 5.2 Restart the Pod's IP address unchanged
 
 
 ```
@@ -613,7 +613,7 @@ Checking the IP address of the restarted Pod, we found that the IP address of th
 
 <br>
 
-## Verify that the container can be accessed normally
+## 5.3 Verify that the container can be accessed normally
 
 Use Web Pod or other Database Pod to access this newly deleted and rebuilt database-2 Pod, you can access it normally:
 
