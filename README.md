@@ -187,7 +187,7 @@ At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek
 
 # [5] View logs
 
-Check `/var/log/kube-ipam.log` on kubernetes node to get the system log information of `kube-ipam`.
+Check `/var/log/kube-ipam.log` file on kubernetes node to get the system log information of `kube-ipam`.
 
 <br>
 <br>
