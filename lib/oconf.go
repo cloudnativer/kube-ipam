@@ -9,9 +9,9 @@ func OutputCniConfig(outputstr string) {
 ----------------------------------------------------
 {
         "cniVersion":"0.3.1",
-        "name": "k8snetwork",
-        "type": "+outputstr+",
-        "master": "eth0",
+        "name": "k8snetwork", `)
+        fmt.Println("        \"type\": \""+outputstr+"\",\"")
+        fmt.Println(`        "master": "eth0",
         "ipam": {
                 "name": "kube-subnet",
                 "type": "kube-ipam",

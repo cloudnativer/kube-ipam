@@ -18,6 +18,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"os"
 	"strconv"
 	"strings"
 
@@ -55,6 +56,16 @@ func CmdCheck(args *skel.CmdArgs) error {
 }
 
 func CmdAdd(args *skel.CmdArgs) error {
+
+	log.SetFormatter(&log.TextFormatter{})
+	file, err := os.OpenFile("/var/log/kube-ipam.log", os.O_CREATE|os.O_WRONLY, 0644)
+	if err == nil {
+		log.SetOutput(file)
+	} else {
+		log.SetOutput(os.Stdout)
+	}
+	log.SetLevel(log.DebugLevel)
+
 	ipamConf, confVersion, err := allocator.LoadIPAMConfig(args.StdinData, args.Args)
 	if err != nil {
 		return err
@@ -107,25 +118,27 @@ func CmdAdd(args *skel.CmdArgs) error {
 	//podIpArray := strings.Split(podIp, `,`)
 
 	if podIp != "" {
-
 		log.Infof("Get the configuration of fixed IP")
+
 		// Check to see if there are any custom IPs requested.
 		var ipConf *current.IPConfig
+		podIpArray := strings.Split(podIp, ",")
 		podNetmaskArray := strings.Split(podNetmask, `.`)
 		podNetmask0, _ := strconv.Atoi(podNetmaskArray[0])
 		podNetmask1, _ := strconv.Atoi(podNetmaskArray[1])
 		podNetmask2, _ := strconv.Atoi(podNetmaskArray[2])
 		podNetmask3, _ := strconv.Atoi(podNetmaskArray[3])
 
-		ipConf = &current.IPConfig{
-			Version: "4",
-			Address: net.IPNet{
-				IP:   net.ParseIP(podIp),
-				Mask: net.IPv4Mask(byte(podNetmask0), byte(podNetmask1), byte(podNetmask2), byte(podNetmask3)),
-			},
-			Gateway: net.ParseIP(podGateway)}
-
-		result.IPs = append(result.IPs, ipConf)
+		for i := 0; i < len(podIpArray); i++ {
+			ipConf = &current.IPConfig{
+				Version: "4",
+				Address: net.IPNet{
+					IP:   net.ParseIP(podIpArray[i]),
+					Mask: net.IPv4Mask(byte(podNetmask0), byte(podNetmask1), byte(podNetmask2), byte(podNetmask3)),
+				},
+				Gateway: net.ParseIP(podGateway)}
+			result.IPs = append(result.IPs, ipConf)
+		}
 
 	} else {
 
@@ -153,24 +166,23 @@ func CmdAdd(args *skel.CmdArgs) error {
 				}
 				return fmt.Errorf("failed to allocate for range %d: %v", idx, err)
 			}
-
 			allocs = append(allocs, allocator)
 
 			result.IPs = append(result.IPs, ipConf)
 		}
 
-	}
+		// If an IP was requested that wasn't fulfilled, fail
+		if len(requestedIPs) != 0 {
+			for _, alloc := range allocs {
+				_ = alloc.Release(args.ContainerID)
+			}
+			errstr := "failed to allocate all requested IPs:"
+			for _, ip := range requestedIPs {
+				errstr = errstr + " " + ip.String()
+			}
+			return fmt.Errorf(errstr)
+		}
 
-	// If an IP was requested that wasn't fulfilled, fail
-	if len(requestedIPs) != 0 {
-		for _, alloc := range allocs {
-			_ = alloc.Release(args.ContainerID)
-		}
-		errstr := "failed to allocate all requested IPs:"
-		for _, ip := range requestedIPs {
-			errstr = errstr + " " + ip.String()
-		}
-		return fmt.Errorf(errstr)
 	}
 
 	result.Routes = ipamConf.Routes

@@ -24,6 +24,7 @@ require (
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
 	go.uber.org/zap v1.19.1 // indirect
+	google.golang.org/appengine v1.6.5
 	google.golang.org/grpc v1.41.0 // indirect
 	k8s.io/apimachinery v0.22.2
 	k8s.io/client-go v0.20.6

@@ -185,7 +185,14 @@ At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek
 <br>
 <br>
 
-# [5] Realize Web and database hierarchical network security access architecture
+# [5] view logs
+
+Check `/var/log/kube-ipam.log` to get the system log information of `kube-ipam`.
+
+<br>
+<br>
+
+# [6] Realize Web and database hierarchical network security access architecture
 
 <br>
 
@@ -206,7 +213,8 @@ Users can access web services through ingress or service. The web pod can access
 <br>
 <br>
 
-# [6] How to Contribute
+
+# [7] How to Contribute
 
 If you have problems in use, <a href="https://github.com/cloudnativer/kube-ipam/issues">you can click here submit issues to us</a>, or fork it and submit PR.
 

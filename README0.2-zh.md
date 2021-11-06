@@ -190,7 +190,14 @@ spec:
 <br>
 <br>
 
-# [5] 实现Web和数据库分层网络安全访问架构
+# [5] 查看日志信息
+
+查看`/var/log/kube-ipam.log`，可以获取`kube-ipam`的系统日志信息。
+
+<br>
+<br>
+
+# [6] 实现Web和数据库分层网络安全访问架构
 
 <br>
 
@@ -211,7 +218,7 @@ spec:
 <br>
 <br>
 
-# [6] 欢迎提交Issues和PR
+# [7] 欢迎提交Issues和PR
 
 如果你在使用过程中遇到问题，可以点击<a href="https://github.com/cloudnativer/kube-ipam/issues">https://github.com/cloudnativer/kube-install/issues</a>向我们提交Issues，也可以Fork源代码，然后尝试修复BUG之后，向我们提交PR。<br>
 
