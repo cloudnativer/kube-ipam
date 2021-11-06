@@ -552,7 +552,7 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 <br>
 <br>
 
-# [4] 验证固定IP通信
+# [5] 验证固定IP通信
 
 <br>
 
@@ -560,7 +560,7 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 
 <br>
 
-## 4.1 删除一个database Pod
+## 5.1 删除一个database Pod
 
 ```
 #
@@ -578,7 +578,7 @@ web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.
 
 <br>
 
-## 4.2 重新启动Pod的IP地址不变
+## 5.2 重新启动Pod的IP地址不变
 
 
 ```
@@ -614,7 +614,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.16
 
 <br>
 
-## 4.3 验证容器可以正常访问
+## 5.3 验证容器可以正常访问
 
 使用Web Pod或其他Database Pod访问这个刚刚删除重建的database-2 Pod，可以正常访问：
 
