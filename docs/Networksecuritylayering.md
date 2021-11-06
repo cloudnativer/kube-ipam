@@ -49,6 +49,11 @@ Create the subnet network segment required by flanneld
 
 ```
 # etcdctl --endpoints=https://192.168.1.11:2379,https://192.168.1.12:2379,https://192.168.1.13:2379  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem --cert-file=/etc/kubernetes/ssl/kubernetes.pem --key-file=/etc/kubernetes/ssl/kubernetes-key.pem set /kubernetes/network/config '{"Network":"10.244.0.0/16", "SubnetLen":24, "Backend":{"Type":"vxlan"}}'
+```
+
+Download the flanneld package:
+
+```
 # wget https://github.com/flannel-io/flannel/releases/download/v0.11.0/flannel-v0.11.0-linux-amd64.tar.gz
 # tar -zxvf flannel-v0.11.0-linux-amd64.tar.gz -C /opt/cni/bin/
 ```
@@ -82,6 +87,16 @@ StartLimitInterval=0
 [Install]
 WantedBy=multi-user.target
 RequiredBy=docker.service
+```
+
+Edit /etc/systemd/system/docker.service，Pay attention to increase the EnvironmentFile and modify the ExecStart parameters:
+
+```
+...
+[Service]
+EnvironmentFile=/run/flannel/docker
+ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
+...
 ```
 
 <br>
