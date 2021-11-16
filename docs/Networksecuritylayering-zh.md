@@ -110,8 +110,9 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
 ```
-# tar -zxvf kube-ipam-x86.tgz
-# mv kube-ipam /opt/cni/bin/kube-ipam
+# wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
+# tar -zxvf kube-ipam-v0.2.0-x86.tgz
+# mv kube-ipam-v0.2.0-x86/kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
