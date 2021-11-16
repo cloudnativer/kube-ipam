@@ -32,8 +32,9 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得`kube-ipam`的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
 ```
-# tar -zxvf kube-ipam-x86.tgz
-# mv kube-ipam /opt/cni/bin/kube-ipam
+# wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
+# tar -zxvf kube-ipam-v0.2.0-x86.tgz
+# mv kube-ipam-v0.2.0-x86/kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
@@ -167,7 +168,7 @@ spec:
 #
 # kubectl get pod -o wide
   NAME                             READY   STATUS    RESTARTS   AGE     IP             NODE   
-  fixed-ip-test-6d9b74fd4d-dbbsd   1/1     Running   0          2d23h   10.188.0.216   192.168.1.66
+  fixed-ip-test-6d9b74fd4d-dbbsd   1/1     Running   0          2d23h   10.188.0.216   192.168.20.21
 
 ```
 现在，这个fixed-ip-test-6d9b74fd4d-dbbsd这个Pod就被分配了一个固定不变的IP地址(10.188.0.216)。
@@ -182,7 +183,7 @@ spec:
 #
 # kubectl get pod -o wide
   NAME                             READY   STATUS    RESTARTS   AGE   IP             NODE   
-  fixed-ip-test-6d9b74fd4d-xjhek   1/1     Running   0          1h    10.188.0.216   192.168.1.66
+  fixed-ip-test-6d9b74fd4d-xjhek   1/1     Running   0          1h    10.188.0.216   192.168.30.35
 
 ```
 此时, 新启动的fixed-ip-test-6d9b74fd4d-xjhek这个Pod的IP地址依然是10.188.0.216。
