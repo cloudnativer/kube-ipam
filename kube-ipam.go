@@ -27,8 +27,8 @@ import (
 
 // Set the version number and release date of Kube-ipam.
 const (
-	Version     string = "v0.2.0"
-	ReleaseDate string = "11/19/2021"
+	Version     string = "kube-ipam v0.2.0"
+	ReleaseDate string = "11/16/2021"
 )
 
 func main() {
