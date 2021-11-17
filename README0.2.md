@@ -6,7 +6,7 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
-Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh-hk.md">繁體中文檔案</a> | <a href="README0.2-zh.md">简体中文文档</a> | <a href="README0.2-zh-jp.md">日本語の文書</a>
+Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh-hk.md">繁體中文檔案</a> | <a href="README0.2-zh.md">简体中文文档</a> | <a href="README0.2-jp.md">日本語の文書</a>
 
 <br>
 <br>
@@ -83,7 +83,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
 ## 3.2  Configuration parameter description
 
-* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, etc.
+* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
 * `routes` (string, optional): list of routes to add to the container namespace. Each route is a dictionary with "dst" and optional "gw" fields. If "gw" is omitted, value of "gateway" will be used.
 * `resolvConf` (string, optional): Path to a `resolv.conf` on the host to parse and return as the DNS configuration
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
@@ -193,11 +193,11 @@ Check `/var/log/kube-ipam.log` file on kubernetes node to get the system log inf
 <br>
 <br>
 
-# [6] Realize Web and database hierarchical network security access architecture
+# [6] Layered network security architecture
 
 <br>
 
-Based on `kube-ipam` and `Multus`, we can implement a hierarchical network security access architecture for Web and database, allowing a Pod to support multiple network interfaces such as random IP and fixed IP at the same time. This deployment method is conducive to security personnel to isolate multiple network areas such as application networks and databases from each other, and effectively control the container cluster network architecture.
+`kube-ipam` can be combined with `multus` for networking, which can support more fixed container IP addresses in the CNI plug-in scenario.For example, we can implement web and database layered network security access architecture based on `kube-ipam` and `multus`, so that a pod can support multiple network interfaces such as random IP and fixed IP at the same time. This deployment method is conducive to the security personnel to isolate multiple network areas such as application network and database, and effectively control the container cluster network architecture.
 
 <br>
 
@@ -233,6 +233,7 @@ Thank you to every contributor!
 <br>
 <br>
 <br>
+
 
 
 
