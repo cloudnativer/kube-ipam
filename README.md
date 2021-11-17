@@ -76,10 +76,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
         }
 }
 
-
 ```
-
-
 
 ## 3.2  Configuration parameter description
 
