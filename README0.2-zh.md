@@ -45,7 +45,7 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 
 ## 3.1  子网址和etcd配置
 
-你可以通过 `subnet` 参数设置IP子网信息，通过 `gateway` 设置网关信心。你可以通过 `etcdConfig` 配置etcd的证书和endpoint地址。
+你可以通过 `subnet` 参数设置IP子网信息，通过 `gateway` 设置网关信息。你可以通过 `etcdConfig` 配置etcd的证书和endpoint地址。
 
 编辑所有kubernetes node主机的 `/etc/cni/net.d/1-kube-ipam.conf` 文件.
 
@@ -61,7 +61,7 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
                 "type": "kube-ipam",
 		"kubeConfig": "/etc/kubernetes/pki/kubectl.kubeconfig"
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.1.50:2379",
+                        "etcdURL": "https://192.168.1.50:2379,https://192.168.1.58:2379,https://192.168.1.63:2379",
                         "etcdCertFile": "/etc/kubernetes/pki/etcd.pem",
                         "etcdKeyFile": "/etc/kubernetes/pki/etcd-key.pem",
                         "etcdTrustedCAFileFile": "/etc/kubernetes/pki/ca.pem"
