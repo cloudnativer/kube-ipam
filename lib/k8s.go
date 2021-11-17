@@ -20,7 +20,6 @@ type CommonArgs struct {
 type K8sArgs struct {
 	types.CommonArgs
 	IP net.IP
-	// 不能用直接用字符串
 	K8S_POD_NAME               types.UnmarshallableString
 	K8S_POD_NAMESPACE          types.UnmarshallableString
 	K8S_POD_INFRA_CONTAINER_ID types.UnmarshallableString
