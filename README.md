@@ -6,7 +6,7 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
-Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">简体中文文档</a> | <a href="README0.2-zh.md">繁體中文檔案</a>
+Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">简体中文文档</a> | <a href="README0.2-zh-hk.md">繁體中文檔案</a>
 
 <br>
 <br>
