@@ -6,7 +6,7 @@ The IP address of pod can be fixed, and kubernetes dynamic IP network allocation
 
 <br>
 
-Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">中文文档</a>
+Switch Languages: <a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">简体中文文档</a> | <a href="README0.2-zh-hk.md">繁體中文檔案</a>
 
 <br>
 <br>
@@ -32,8 +32,9 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 
 `kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
-# tar -zxvf kube-ipam-x86.tgz
-# mv kube-ipam /opt/cni/bin/kube-ipam
+# wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
+# tar -zxvf kube-ipam-v0.2.0-x86.tgz
+# mv kube-ipam-v0.2.0-x86/kube-ipam /opt/cni/bin/kube-ipam
 ```
 
 <br>
@@ -58,7 +59,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
                 "name": "kube-subnet",
                 "type": "kube-ipam",
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.1.50:2379",
+                        "etcdURL": "https://192.168.1.50:2379,https://192.168.1.58:2379,https://192.168.1.63:2379",
 			"kubeConfig": "/etc/kubernetes/pki/kubectl.kubeconfig"
                         "etcdCertFile": "/etc/kubernetes/ssl/etcd.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/etcd-key.pem",
@@ -162,7 +163,7 @@ Use the `kubectl apply` command to create a fixed IP pod:
 #
 # kubectl get pod -o wide
   NAME                             READY   STATUS    RESTARTS   AGE     IP             NODE   
-  fixed-ip-test-6d9b74fd4d-dbbsd   1/1     Running   0          2d23h   10.188.0.216   192.168.1.66
+  fixed-ip-test-6d9b74fd4d-dbbsd   1/1     Running   0          2d23h   10.188.0.216   192.168.20.21
 
 ```
 At this point, the fixed-ip-test-6d9b74fd4d-dbbsd is fixed to 10.188.0.216.
@@ -177,7 +178,7 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
 #
 # kubectl get pod -o wide
   NAME                             READY   STATUS    RESTARTS   AGE   IP             NODE   
-  fixed-ip-test-6d9b74fd4d-xjhek   1/1     Running   0          1h    10.188.0.216   192.168.1.66
+  fixed-ip-test-6d9b74fd4d-xjhek   1/1     Running   0          1h    10.188.0.216   192.168.30.35
 
 ```
 At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
@@ -232,7 +233,6 @@ Thank you to every contributor!
 <br>
 <br>
 <br>
-
 
 
 
