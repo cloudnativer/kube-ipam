@@ -1,4 +1,4 @@
-# kube-ipamとMultiusに基づいてWebとデータベース階層ネットワークセキュリティアクセスアーキテクチャを実現する。
+# kube-ipamとmultusに基づいてWebとデータベース階層ネットワークセキュリティアクセスアーキテクチャを実現する。
 
 <br>
 <br>
@@ -7,11 +7,11 @@
 
 <br>
 
-## 1.1 kube-ipamとMultiusの概要
+## 1.1 kube-ipamとmultusの概要
 
 Kube-ipamは、kubernetesクラスタ内のPod固定IPアドレスに対応しています。いくつかのシーンはIPアドレスに依存していますが、固定IPアドレスのPodを使って、クビ-ipamを使って簡単に解決できます。例えば、mysql主従構造の時、主databaseとdatabaseの間の同期；例えば、keepalivedがクラスタHAをするとき、2つのノード間で通信などを検出する。例えば、いくつかのセキュリティ保護装置は、IPアドレスに基づいてネットワークセキュリティアクセスポリシーの制限を行うシーンなどが必要である。
 <br>
-Multius-CNI同時に複数のネットワークインターフェースをkubernetes環境内のPodに同時に追加することをサポートしています。このような配置は、アプリケーションネットワークやデータベースなど複数のネットワーク領域を相互に分離し、コンテナクラスターネットワークアーキテクチャを効果的に制御するために、セキュリティ要員が有利である。
+multus-CNI同時に複数のネットワークインターフェースをkubernetes環境内のPodに同時に追加することをサポートしています。このような配置は、アプリケーションネットワークやデータベースなど複数のネットワーク領域を相互に分離し、コンテナクラスターネットワークアーキテクチャを効果的に制御するために、セキュリティ要員が有利である。
 
 <br>
 
@@ -122,7 +122,7 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 
 ## 2.3 multus-cniの設置
 
-multius-cniパッケージをダウンロード：
+multus-cniパッケージをダウンロード：
  
 ```
 # wget https://github.com/k8snetworkplumbingwg/multus-cni/releases/download/v3.8/multus-cni_3.8_linux_amd64.tar.gz
@@ -152,9 +152,9 @@ multius-cniパッケージをダウンロード：
 # rm -rf /etc/cni/net.d/*
 ```
 
-multiusは「delegates」の概念を使用して複数のCNIプラグインを組み合わせ、PODのマスターネットワークとしてmasterpluginを指定し、Kubernetesによって知覚される。
+multusは「delegates」の概念を使用して複数のCNIプラグインを組み合わせ、PODのマスターネットワークとしてmasterpluginを指定し、Kubernetesによって知覚される。
 
-それから/etc/cni/net.d/10-multius.confを作成します。
+それから/etc/cni/net.d/10-multus.confを作成します。
 
 ```
 # cat /etc/cni/net.d/10-multus.conf
