@@ -37,6 +37,7 @@ func NewClient(kubeCfg string) (*kubernetes.Clientset, error) {
 	return kubernetes.NewForConfig(restConf)
 }
 
+//Get Annotations information of pod
 func GetPodInfo(client *kubernetes.Clientset, podName, podNamespace string) (annotations map[string]string, err error) {
 	pod, err := client.CoreV1().Pods(string(podNamespace)).Get(context.TODO(), podName, metav1.GetOptions{})
 	if err != nil {
@@ -45,3 +46,4 @@ func GetPodInfo(client *kubernetes.Clientset, podName, podNamespace string) (ann
 	log.Infof("pod info %+v", pod)
 	return pod.Annotations, nil
 }
+
