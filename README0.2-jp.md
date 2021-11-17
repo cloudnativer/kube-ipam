@@ -210,7 +210,7 @@ k8s-nodeホスト上の`/var/log/kube-ipam.log`ファイルを見て、`kube-ipa
 
 <br/>
 
-ユーザは、ingressまたはserviceを介してウェブサービスにアクセスすることができる。web podは、databaseエリアネットワークを通じて、固定IPアドレスのdatabaseサービスにアクセスすることができます。Database領域ネットワークのdatabase Podは、互いに固定IPアドレスを介してクラスタの通信動作を行うことができる。階層ネットワークセキュリティアクセスアーキテクチャの<a href="docs/Networksecuritylayering-zh.md">インストールと配置はここをクリックしてください</a>。
+ユーザは、ingressまたはserviceを介してウェブサービスにアクセスすることができる。web podは、databaseエリアネットワークを通じて、固定IPアドレスのdatabaseサービスにアクセスすることができます。Database領域ネットワークのdatabase Podは、互いに固定IPアドレスを介してクラスタの通信動作を行うことができる。階層ネットワークセキュリティアクセスアーキテクチャの<a href="docs/Networksecuritylayering-jp.md">インストールと配置はここをクリックしてください</a>。
 
 <br>
 <br>
