@@ -6,7 +6,7 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 
 <br>
 
-切换语言：<a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">中文文档</a>
+切换语言：<a href="README0.2.md">English Documents</a> | <a href="README0.2-zh.md">中文文档</a> | <a href="README0.2-zh-.md">繁體中文檔案</a>
 
 <br>
 <br>
