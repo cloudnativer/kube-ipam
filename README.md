@@ -28,7 +28,7 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 <br>
 
 
-# [2]  Install kube-ipam：
+# [2]  Install kube-ipam
 
 `kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
