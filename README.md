@@ -59,7 +59,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
                 "name": "kube-subnet",
                 "type": "kube-ipam",
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.1.50:2379",
+                        "etcdURL": "https://192.168.1.50:2379,https://192.168.1.58:2379,https://192.168.1.63:2379",
 			"kubeConfig": "/etc/kubernetes/pki/kubectl.kubeconfig"
                         "etcdCertFile": "/etc/kubernetes/ssl/etcd.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/etcd-key.pem",
