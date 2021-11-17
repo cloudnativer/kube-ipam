@@ -1,20 +1,23 @@
-# 基于kube-ipam与Multus实现Web和数据库分层网络安全访问架构
+#基於kube-ipam與Multus實現Web和資料庫分層網路安全訪問架構
 
 <br>
 <br>
 
-# [1] 基本概况
+# [1] 基本概況
 
 <br>
 
-## 1.1 kube-ipam与Multus概述
-Kube-ipam支持给kubernetes集群中的Pod固定IP地址。一些场景往往对IP地址有依赖，需要使用固定IP地址的Pod，可以使用kube-ipam轻松解决这类问题。例如，mysql主从架构的时候，主database与从database之间的同步；例如keepalived做集群HA的时候，两个节点之间检测通信等；例如某些安全防护设备，需要基于IP地址进行网络安全访问策略限制的场景等。
-<br>
-Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这样的部署方式有利于安全人员把应用网络和数据库等多个网络区域进行相互隔离，有效控制容器集群网络架构。
+## 1.1 kube-ipam與Multus概述
+
+Kube-ipam支持給kubernetes集羣中的Pod固定IP地址。 一些場景往往對IP地址有依賴，需要使用固定IP地址的Pod，可以使用kube-ipam輕鬆解决這類問題。 例如，mysql主從架構的時候，主database與從database之間的同步； 例如keepalived做集羣HA的時候，兩個節點之間檢測通信等； 例如某些安全防護設備，需要基於IP地址進行網路安全訪問策略限制的場景等。
 
 <br>
 
-## 1.2 网络分层架构设计
+Multus-CNI支持同時添加多個網路介面到kubernetes環境中的Pod。 這樣的部署管道有利於安全人員把應用網絡和資料庫等多個網絡區域進行相互隔離，有效控制容器集羣網絡架構。
+
+<br>
+
+## 1.2 網絡分層架構設計
  
 <br>
 
@@ -22,43 +25,43 @@ Multus-CNI支持同时添加多个网络接口到kubernetes环境中的Pod。这
 
 <br>
 
-上图中显示了每个Pod具有2个接口：eth0、net1。eth0作为外界用户访问web pod的网络接口；而net1是附加的容器网卡，作为web Pod到database Pod的内部网络通信。
+上圖中顯示了每個Pod具有2個介面：eth0、net1。 eth0作為外界用戶訪問web pod的網路介面； 而net1是附加的容器網卡，作為web Pod到database Pod的內部網路通信。
 
 <br>
 <br>
 
 
-# [2] 安装CNI插件
+# [2] 安裝CNI挿件
 
 <br>
 
-## 2.1 安装cni plugin和flannel
+## 2.1 安裝cni plugin和flannel
 
 <br>
 
-### 安装cni plugin
+### 安裝cni plugin
 
 ```
 # wget https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
 # tar -zxvf cni-plugins-linux-amd64-v0.9.1.tgz -C /opt/cni/bin/
 ```
 
-### 安装flanneld
+### 安裝flanneld
 
-创建flanneld所需的subnet网段
+創建flanneld所需的subnet網段
 
 ```
 # etcdctl --endpoints=https://192.168.1.11:2379,https://192.168.1.12:2379,https://192.168.1.13:2379  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem --cert-file=/etc/kubernetes/ssl/kubernetes.pem --key-file=/etc/kubernetes/ssl/kubernetes-key.pem set /kubernetes/network/config '{"Network":"10.244.0.0/16", "SubnetLen":24, "Backend":{"Type":"vxlan"}}'
 ```
 
-下载flanneld软件包：
+下載flanneld套裝軟體：
 
 ```
 # wget https://github.com/flannel-io/flannel/releases/download/v0.11.0/flannel-v0.11.0-linux-amd64.tar.gz
 # tar -zxvf flannel-v0.11.0-linux-amd64.tar.gz -C /opt/cni/bin/
 ```
 
-编辑 /etc/systemd/system/flanneld.service
+編輯 /etc/systemd/system/flanneld.service
 
 ```
 # cat /etc/systemd/system/flanneld.service
@@ -89,7 +92,7 @@ WantedBy=multi-user.target
 RequiredBy=docker.service
 ```
 
-修改 /etc/systemd/system/docker.service，注意增加EnvironmentFile，并修改ExecStart参数：
+修改/etc/systemd/system/docker.service，注意新增EnvironmentFile，並修改ExecStart參數：
 
 ```
 ...
@@ -101,13 +104,13 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 
 <br>
 
-说明：如果你是使用的是<a href="https://github.com/cloudnativer/kube-install">kube-install</a>安装的kubernetes集群，那么安装cni plugin和flannel这两步可以省略。
+說明：如果你是使用的是<a href=“ https://github.com/cloudnativer/kube-install “>kube-install</a>安裝的kubernetes集羣，那麼安裝cni plugin和flannel這兩步可以省略。
 
 <br>
 
-## 2.2 安装kube-ipam
+## 2.2 安裝kube-ipam
 
-你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得kube-ipam的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
+你可以通過<a href=“docs/download.md”>下載</a>或<a href=“docs/build.md”>編譯</a>獲得kube-ipam的二進位檔案，然後將kube-ipam的二進位檔案拷貝到kubernetes node主機的`/opt/cni/bin/`目錄中。
 
 ```
 # wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
@@ -118,15 +121,15 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 <br>
 
 
-## 2.3 安装multus-cni
+## 2.3 安裝multus-cni
 
-下载multus-cni包：
+下載multus-cni包：
  
 ```
 # wget https://github.com/k8snetworkplumbingwg/multus-cni/releases/download/v3.8/multus-cni_3.8_linux_amd64.tar.gz
 ```
 
-把解压出来的二进制文件拷贝到所有Kubernetes的worker节点的/opt/cni/bin目录
+把解壓出來的二進位檔案拷貝到所有Kubernetes的worker節點的/opt/cni/bin目錄
 
 ```
 # tar -zxvf multus-cni_3.8_linux_amd64.tar.gz
@@ -136,22 +139,23 @@ ExecStart=/usr/bin/dockerd $DOCKER_NETWORK_OPTIONS
 <br>
 <br>
 
-# [3] 配置与创建Pod
+# [3] 配寘與創建Pod
 
 <br>
 
-## 3.1 创建CNI配置
+## 3.1 創建CNI配寘
 
 <br>
-为了确保主机环境的干净，请执行如下命令删除kubernetes node主机上的已有的cni配置：
+
+為了確保主機環境的乾淨，請執行如下命令删除kubernetes node主機上的已有的cni配寘：
 
 ```
 # rm -rf /etc/cni/net.d/*
 ```
 
-multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一个masterplugin来作为POD的主网络并且被Kubernetes所感知。
+multus使用“delegates”的概念將多個CNI挿件組合起來，並且指定一個masterplugin來作為POD的主網絡並且被Kubernetes所感知。
 
-然后创建/etc/cni/net.d/10-multus.conf
+然後創建/etc/cni/net.d/10-multus.conf
 
 ```
 # cat /etc/cni/net.d/10-multus.conf
@@ -199,7 +203,7 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
 ```
 
 
-重启kubelet服务：
+重啓kubelet服務：
 
 ```
 # systemctl restart kubelet
@@ -207,9 +211,9 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
 
 <br>
 
-## 3.2 创建Database Pod
+## 3.2 創建Database Pod
 
-配置需要固定IP的数据容器
+配寘需要固定IP的數據容器
 
 ```
 # cat db.yaml 
@@ -274,7 +278,7 @@ spec:
         resources: {} 
 ```
 
-使用`kubectl apply`命令创建：
+使用`kubectl apply`命令創建：
 
 ```
 # 
@@ -292,9 +296,9 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h17m   10.244.71.9   192.16
 
 <br>
 
-## 3.3 创建Web Pod
+## 3.3 創建Web Pod
 
-配置不需要固定IP的web应用
+配寘不需要固定IP的web應用
 
 
 ```
@@ -326,7 +330,7 @@ spec:
         resources: {}
 ```
 
-使用`kubectl apply`命令创建：
+使用`kubectl apply`命令創建：
 
 
 ```
@@ -343,11 +347,11 @@ web-5fd8684df7-p9g8s   1/1     Running   0          5s    10.244.71.9   192.168.
 
 <br>
 
-## 3.4 创建service或ingress
+## 3.4 創建service或ingress
 
-用户可以通过web区域网络，通过ingress或service来访问到web服务。
+用戶可以通過web區域網絡，通過ingress或service來訪問到web服務。
 
-给web Pod配置service：
+給web Pod配寘service：
 
 ```
 # cat web-svc.yaml
@@ -367,7 +371,7 @@ protocol: TCP
 
 ```
 
-使用`kubectl apply`命令创建：
+使用`kubectl apply`命令創建：
 
 ```
 #
@@ -383,7 +387,7 @@ web-svc      ClusterIP   10.254.150.15   <none>       80:18370/TCP  6m4s
 #
 ```
 
-配置ingress到web service：
+配寘ingress到web service：
 
 ```
 # 
@@ -400,7 +404,7 @@ spec:
         number: 80
 ```
 
-使用`kubectl apply`命令创建：
+使用`kubectl apply`命令創建：
 
 ```
 # 
@@ -412,17 +416,17 @@ ingress.networking.k8s.io/web-ingress created
 <br>
 <br>
 
-# [4] 验证分层网络访问
+# [4] 驗證分層網絡訪問
 
 <br>
 
-此时，用户可以通过ingress或service来访问到web服务。web pod可以通过database区域网络，访问固定IP地址的database服务。Database区域网络的database Pod可以互相通过固定IP地址进行集群的通信操作。
+此時，用戶可以通過ingress或service來訪問到web服務。 web pod可以通過database區域網絡，訪問固定IP地址的database服務。 Database區域網絡的database Pod可以互相通過固定IP地址進行集羣的通信操作。
 
 <br>
 
-## 4.1 用户通过service访问Web
+## 4.1 用戶通過service訪問Web
 
-通过ingress或service来访问到web服务
+通過ingress或service來訪問到web服務
 
 
 ```
@@ -458,9 +462,9 @@ Commercial support is available at
 
 <br>
 
-## 4.2 Web Pod通过固定IP访问Database
+## 4.2 Web Pod通過固定IP訪問Database
 
-查看database-2 Pod的net1网卡，10.188.0.219为固定IP地址
+查看database-2 Pod的net1網卡，10.188.0.219為固定IP地址
 
 ```
 #
@@ -480,7 +484,7 @@ Commercial support is available at
 #
 ```
 
-Web Pod可以通过database区域网络，访问固定IP地址的database服务
+Web Pod可以通過database區域網絡，訪問固定IP地址的database服務
 
 ```
 #
@@ -498,9 +502,9 @@ round-trip min/avg/max/stddev = 0.341/0.478/0.720/0.131 ms
 
 <br>
 
-## 4.3 database区域的Pod通过固定IP互访
+## 4.3 database區域的Pod通過固定IP互訪
 
-database区域网络内的database-1与database-2都拥有固定IP地址，两个数据库Pod之间可以互相通过固定IP进行集群的通信操作。例如，mysql主从架构的时候，主database-1与从database-2之间的同步。
+database區域網絡內的database-1與database-2都擁有固定IP地址，兩個資料庫Pod之間可以互相通過固定IP進行集羣的通信操作。 例如，mysql主從架構的時候，主database-1與從database-2之間的同步。
 
 ```
 #
@@ -519,7 +523,7 @@ database区域网络内的database-1与database-2都拥有固定IP地址，两�
        valid_lft forever preferred_lft forever
 ```
 
-使用database-2 Pod访问database-1 Pod
+使用database-2 Pod訪問database-1 Pod
 
 ```
 #
@@ -554,15 +558,15 @@ round-trip min/avg/max/stddev = 0.246/0.359/0.484/0.085 ms
 <br>
 <br>
 
-# [5] 验证固定IP通信
+# [5] 驗證固定IP通信
 
 <br>
 
-上文中使用kube-ipam进行固定IP的容器在删除、漂移、重启之后，重新起来的容器依然保持原有的IP地址固定不变。
+上文中使用kube-ipam進行固定IP的容器在删除、漂移、重啓之後，重新起來的容器依然保持原有的IP地址固定不變。
 
 <br>
 
-## 5.1 删除一个database Pod
+## 5.1 删除一個database Pod
 
 ```
 #
@@ -580,7 +584,7 @@ web-5fd8684df7-p9g8s   1/1     Running             0          3h35m   10.244.71.
 
 <br>
 
-## 5.2 重新启动Pod的IP地址不变
+## 5.2 重新啟動Pod的IP地址不變
 
 
 ```
@@ -594,7 +598,7 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.16
 #
 ```
 
-查看重新启动Pod的IP地址，我们发现net1网卡的IP地址依然为10.188.0.219
+查看重新啟動Pod的IP地址，我們發現net1網卡的IP地址依然為10.188.0.219
 
 ```
 #
@@ -616,9 +620,9 @@ web-5fd8684df7-p9g8s   1/1     Running   0          3h35m   10.244.71.9   192.16
 
 <br>
 
-## 5.3 验证容器可以正常访问
+## 5.3 驗證容器可以正常訪問
 
-使用Web Pod或其他Database Pod访问这个刚刚删除重建的database-2 Pod，可以正常访问：
+使用Web Pod或其他Database Pod訪問這個剛剛删除重建的database-2 Pod，可以正常訪問：
 
 ```
 #
