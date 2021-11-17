@@ -79,7 +79,6 @@ Kube-ipam基於etcd分佈式存儲實現kubernetes動態IP網絡分配管理，�
 
 ```
 
-
 ## 3.2 配寘參數說明
 
 * `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge等（還可以與`Multus`結合支持更多CNI挿件）。
