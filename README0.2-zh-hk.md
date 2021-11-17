@@ -43,7 +43,7 @@ Kube-ipam基於etcd分佈式存儲實現kubernetes動態IP網絡分配管理，�
 
 # [3] /etc/cni/net.d配寘
 
-## 3.1 子網址和etcd配寘
+## 3.1 子網和etcd配寘
 
 你可以通過`subnet`參數設置IP子網資訊，通過`gateway`設定閘道資訊。 你可以通過`etcdConfig`配寘etcd的證書和endpoint地址。
 
