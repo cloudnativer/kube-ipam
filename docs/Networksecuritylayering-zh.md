@@ -179,7 +179,7 @@ multus使用"delegates"的概念将多个CNI插件组合起来，并且指定一
                 "type": "kube-ipam",
                 "kubeConfig": "/etc/kubernetes/ssl/kube.kubeconfig",
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.1.11:2379",
+                        "etcdURL": "https://192.168.1.50:2379,https://192.168.1.58:2379,https://192.168.1.63:2379",
                         "etcdCertFile": "/etc/kubernetes/ssl/kubernetes.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/kubernetes-key.pem",
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/k8s-root-ca.pem"
