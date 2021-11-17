@@ -84,7 +84,7 @@ Kube-ipam基於etcd分佈式存儲實現kubernetes動態IP網絡分配管理，�
 
 ## 3.2 配寘參數說明
 
-* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge等。
+* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge等（還可以與`Multus`結合支持更多CNI挿件）。
 * `routes` (string, optional): 要添加到容器命名空间的路由列表。 每个路由都是一个带有“dst”和可选“gw”字段。 如果省略“gw”，将使用“网关”的值。
 * `resolvConf` (string, optional): 主机上要解析并作为 DNS 配置返回的 `resolv.conf` 文件路径。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
@@ -197,11 +197,11 @@ spec:
 <br>
 <br>
 
-# [6] 實現Web和資料庫分層網路安全訪問架構
+# [6] 分層網路安全架構
 
 <br>
 
-我們可以基於`kube-ipam`與`Multus`實現Web和資料庫分層網路安全訪問架構，讓一個Pod同時支持隨機IP和固定IP等多個網路介面。 這樣的部署管道有利於安全人員把應用網絡和資料庫等多個網絡區域進行相互隔離，有效控制容器集羣網絡架構。
+`kube-ipam`可以與`Multus`結合來進行組網，這樣可以支持更多的CNI挿件場景下的容器IP地址固定。例如，我們可以基於`kube-ipam`與`Multus`實現Web和資料庫分層網路安全訪問架構，讓一個Pod同時支持隨機IP和固定IP等多個網路介面。 這樣的部署管道有利於安全人員把應用網絡和資料庫等多個網絡區域進行相互隔離，有效控制容器集羣網絡架構。
 
 <br>
 
