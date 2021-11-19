@@ -29,6 +29,23 @@ Kube-ipamは、etcd分布式記憶に基づいて、クラスタ内のIPアド�
 
 # [2] kube-ipamの取り付け
 
+## 铅铉有効と配置CNI経路
+
+あなたの`kubelet`が正しく`network-plugin`と`cni-conf-dir`と`cni-bin-dir`パラメータを配置していることを確認してください。以下に‘kubelet’の構成例を示します。参考にしてください：
+
+```
+# cat /etc/systemd/system/kubelet.service
+…
+ExecStart=/usr/local/bin/kubelet \
+…
+--network-plugin=cni \
+--cni-conf-dir=/etc/cni/net.d \
+--cni-bin-dir=/opt/cni/bin/ \
+…
+```
+
+## 璣嗳取得と取付zxx
+
 <a href="docs/download.md">ダウンロード</a>または<a href="docs/build.md">コンパイル</a>を通じて、`kube-i pam`のバイナリファイルを取得して、k 8 s-nodeホストの`/opt/cni/bin/ディレクトリにコピーしてください。
 
 
