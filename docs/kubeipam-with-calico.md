@@ -21,7 +21,7 @@ ExecStart=/usr/local/bin/kubelet \
 ...
 ```
 
-# 1.2 Install kube-ipam
+### 1.2 Install kube-ipam
 
 `kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
