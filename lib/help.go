@@ -10,7 +10,7 @@ func ShowHelp() {
     -help
           Display usage help information of kube-ipam.
     -outputconf string
-          Generate the configuration files required by different CNI plug-ins.(Use with "macvlan | ipvlan | kube-router | bridge | flannel")
+          Generate the configuration files required by different CNI plug-ins.(Use with "macvlan | ipvlan | kube-router | bridge | calico")
     -version
           Display software version information of kube-ipam.
     `)

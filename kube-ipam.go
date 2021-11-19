@@ -35,7 +35,7 @@ func main() {
 
 	var outputconf string
 
-	flag.StringVar(&outputconf, "outputconf", "", "Generate the configuration files required by different CNI plug-ins.(Use with \"macvlan | ipvlan | kube-router | bridge \")")
+	flag.StringVar(&outputconf, "outputconf", "", "Generate the configuration files required by different CNI plug-ins.(Use with \"macvlan | ipvlan | kube-router | bridge | calico\")")
 	versionFlag := flag.Bool("version", false, "Display software version information of kube-ipam.")
 	helpFlag := flag.Bool("help", false, "Display usage help information of kube-ipam.")
 	flag.Parse()
@@ -57,6 +57,8 @@ func main() {
 			kipam.OutputCniConfig("kube-router")
 		case outputconf == "bridge":
 			kipam.OutputCniConfig("bridge")
+                case outputconf == "calico":
+                        kipam.OutputCniConfig("calico")
 		}
 
 	default:

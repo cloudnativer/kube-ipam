@@ -80,7 +80,7 @@ Kube-ipamは、etcd分布式記憶に基づいて、クラスタ内のIPアド�
 
 ## 3.2  配置パラメータの説明
 
-* `type` (string, required): CNIプラグインの種類を記入します。例えば、macvlan、ipvlan、kube-router、bridgeなどです（`Multius`と組み合わせてより多くのCNIプラグインをサポートすることもできます）。
+* `type` (string, required): CNIプラグインの種類を記入します。例えば、macvlan、ipvlan、kube-router、bridge、calicoなどです（`Multius`と組み合わせてより多くのCNIプラグインをサポートすることもできます）。
 * `routes` (string, optional): コンテナの名前空間のルートリストに追加します。各ルーティングは、`dst`とオプションの`gw`フィールドを有するものである。`gw`を省略すると、「ゲートウェイ」の値が使用されます。
 * `resolvConf` (string, optional): ホスト上で解析され、DNS構成として返される`resov.co nf`ファイルパス。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
@@ -169,6 +169,9 @@ spec:
 ```
 
 現在、このfixed-inp-test-6 d 9 b 74 fd 4 d-dbbbbbsというPodは固定不変のIPアドレスを割り当てられました（10.188.0.216）。
+<br>
+
+ここではもう一つの例があります。`calico`CNI環境で`kube-ipam`を使って容器IPを固定する例があります。<a href=“docs/kubeipam-with-calico.md">ここをクリックしてみてください</a>。
 
 # 4.3 Podを再構築し、IPは固定されたままであること。
 

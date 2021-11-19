@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: fixed-ip-test
+  name: fixed-ip-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fixed-ip-test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fixed-ip-test
+      annotations:
+        kube-ipam.ip: "10.244.0.216"
+        kube-ipam.netmask: "255.255.0.0"
+        kube-ipam.gateway: "10.244.0.1"
+    spec:
+      containers:
+      - image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        resources: {}
+

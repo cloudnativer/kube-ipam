@@ -81,7 +81,7 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 
 ## 3.2  配置参数说明
 
-* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge等（还可以与`Multus`结合支持更多CNI插件）。
+* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge、calico等（还可以与`Multus`结合支持更多CNI插件）。
 * `routes` (string, optional): 要添加到容器命名空间的路由列表。 每个路由都是一个带有“dst”和可选“gw”字段。 如果省略“gw”，将使用“网关”的值。
 * `resolvConf` (string, optional): 主机上要解析并作为 DNS 配置返回的 `resolv.conf` 文件路径。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
@@ -184,6 +184,9 @@ spec:
 
 ```
 此时, 新启动的fixed-ip-test-6d9b74fd4d-xjhek这个Pod的IP地址依然是10.188.0.216。
+<br>
+
+这里还有一篇关于在`calico`CNI环境使用`kube-ipam`来固定容器IP的例子，<a href="docs/kubeipam-with-calico.md">请点击这里查看</a>！
 
 <br>
 <br>

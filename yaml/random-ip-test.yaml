@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: random-ip-test
+  name: random-ip-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: random-ip-test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: random-ip-test
+    spec:
+      containers:
+      - image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        resources: {}
+

@@ -81,7 +81,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
 ## 3.2  Configuration parameter description
 
-* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
+* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, calico, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
 * `routes` (string, optional): list of routes to add to the container namespace. Each route is a dictionary with "dst" and optional "gw" fields. If "gw" is omitted, value of "gateway" will be used.
 * `resolvConf` (string, optional): Path to a `resolv.conf` on the host to parse and return as the DNS configuration
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
@@ -180,6 +180,10 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
 
 ```
 At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
+
+<br>
+
+Here is another example of using `kube-ipam` fixed pod IP in `calico` CNI environment, <a href="docs/kubeipam-with-calico.md">please click here to view it</a>!
 
 <br>
 <br>

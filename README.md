@@ -78,9 +78,10 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 
 ```
 
+
 ## 3.2  Configuration parameter description
 
-* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
+* `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, calico, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
 * `routes` (string, optional): list of routes to add to the container namespace. Each route is a dictionary with "dst" and optional "gw" fields. If "gw" is omitted, value of "gateway" will be used.
 * `resolvConf` (string, optional): Path to a `resolv.conf` on the host to parse and return as the DNS configuration
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
