@@ -32,7 +32,7 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 
 ## Enable and configure CNI directory
 
-Please make sure that your kubelet takes the three correct parameters `network-plugin`, `cni-conf-dir` and `cni-bin-dir`. An example configuration of kubelet is given below:
+Please make sure that your `kubelet` takes the three correct parameters `network-plugin`, `cni-conf-dir` and `cni-bin-dir`. An example configuration of `kubelet` is given below:
 
 ```
 # cat /etc/systemd/system/kubelet.service 
