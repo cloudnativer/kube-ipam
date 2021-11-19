@@ -99,7 +99,7 @@ After calico CNI is installed, you will see the following configuration informat
                 "type": "kube-ipam",
                 "kubeConfig": "/etc/kubernetes/ssl/kube.kubeconfig",
                 "etcdConfig": {
-                        "etcdURL": "https://192.168.56.82:2379",
+                        "etcdURL": "https://192.168.1.50:2379,https://192.168.1.58:2379,https://192.168.1.63:2379",
                         "etcdCertFile": "/etc/kubernetes/ssl/kubernetes.pem",
                         "etcdKeyFile": "/etc/kubernetes/ssl/kubernetes-key.pem",
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/k8s-root-ca.pem"
