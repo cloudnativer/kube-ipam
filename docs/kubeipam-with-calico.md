@@ -149,7 +149,6 @@ Next, let's create a fixed IP Pod:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: fixed-ip-test
   name: fixed-ip-test
@@ -161,7 +160,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: fixed-ip-test
       annotations:
@@ -198,7 +196,6 @@ Next, let's create a random IP Pod:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: random-ip-test
   name: random-ip-test
@@ -210,7 +207,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: random-ip-test
     spec:
