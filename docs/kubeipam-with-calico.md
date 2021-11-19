@@ -263,7 +263,7 @@ fixed-ip-test-88554b798-8ukle    1/1     Running   0          1m     10.244.0.21
 #
 ```
 
-At this time, the IP address of the newly started fixed-ip-test-88554b798-8ukle is still 10.188.0.216.
+At this time, the IP address of the newly started fixed-ip-test-88554b798-8ukle is still 10.244.0.216.
 
 
 
