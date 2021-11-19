@@ -4,10 +4,10 @@
 
 
 
-## Installing and configuring calico CNI
+## [1] Installing and configuring calico CNI
 
 
-### Installing calico CNI
+### 1.1 Installing calico CNI
 
 There is an example <a href="../yaml/calico.yaml">calico.yaml</a> in the yaml directory. We use this <a href="../yaml/calico.yaml">calico.yaml</a> to install calico CNI. Please note the settings of `kubeConfig`, `etcdConfig`, `subnet` and other parameters. `subnet` and `CALICO_IPV4POOL_CIDR` parameters should be set to the same value.
 
@@ -75,7 +75,7 @@ No IPv6 peers found.
 #
 ```
 
-### About /etc/cni/net.d config
+### 1.2 About /etc/cni/net.d config
 
 After calico CNI is installed, you will see the following configuration information in `/etc/cni/net.d/10-calico.conflist` file:
 
@@ -137,9 +137,9 @@ After calico CNI is installed, you will see the following configuration informat
 ```
 
 
-## Create fixed IP and random IP pod
+## [2] Create fixed IP and random IP pod
 
-### Create fixed IP pod
+### 2.1 Create fixed IP pod
 
 Next, let's create a fixed IP Pod:
 
@@ -188,7 +188,7 @@ Create a fixed IP pod using the `kubectl apply -f` command:
 #
 ```
 
-### Create random IP pod
+### 2.3 Create random IP pod
 
 Next, let's create a random IP Pod:
 
@@ -235,9 +235,9 @@ Create a random IP pod using the `kubectl apply -f` command:
 ```
 
 
-## Verify the fixation of pod IP
+## [3] Verify the fixation of pod IP
 
-### View current pod status
+### 3.1 View current pod status
 
 Now you can see that there are two random-ip pod and one fixed-ip pod:
 
@@ -252,7 +252,7 @@ fixed-ip-test-88554b798-xcfpb    1/1     Running   0          131m   10.244.0.21
 #
 ```
 
-### After rescheduling, the pod IP remains unchanged
+### 3.2 After rescheduling, the pod IP remains unchanged
 
 Use the `kubectl delete` command to delete fixed-ip pod, and kuberntes will automatically start a new fixed IP test pod:
 
