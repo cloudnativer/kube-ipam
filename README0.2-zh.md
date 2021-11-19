@@ -29,6 +29,23 @@ Kube-ipam基于etcd分布式存储实现kubernetes动态IP网络分配管理，�
 
 # [2]  安装kube-ipam
 
+## 启用与配置CNI路径
+
+请确保你的`kubelet`正确的配置了`network-plugin`、`cni-conf-dir` 和 `cni-bin-dir`参数。下面给出一个kubelet的配置示例供你参考：
+
+```
+# cat /etc/systemd/system/kubelet.service 
+...
+ExecStart=/usr/local/bin/kubelet \
+...
+  --network-plugin=cni \
+  --cni-conf-dir=/etc/cni/net.d \
+  --cni-bin-dir=/opt/cni/bin/ \
+...
+```
+
+## 获取和安装kube-ipam
+
 你可以通过<a href="docs/download.md">下载</a>或<a href="docs/build.md">编译</a>获得`kube-ipam`的二进制文件，然后将kube-ipam的二进制文件拷贝到kubernetes node主机的`/opt/cni/bin/` 目录中。
 
 ```
