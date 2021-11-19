@@ -9,7 +9,7 @@
 
 ### Installing calico CNI
 
-There is an example calico.yaml in the yaml directory. We use this calico.yaml to install calico CNI. Please note the settings of `kubeConfig`, `etcdConfig`, `subnet` and other parameters. `subnet` and `CALICO_IPV4POOL_CIDR` parameters should be set to the same value.
+There is an example <a href="../yaml/calico.yaml">calico.yaml</a> in the yaml directory. We use this <a href="../yaml/calico.yaml">calico.yaml</a> to install calico CNI. Please note the settings of `kubeConfig`, `etcdConfig`, `subnet` and other parameters. `subnet` and `CALICO_IPV4POOL_CIDR` parameters should be set to the same value.
 
 ```
 ...
@@ -39,7 +39,7 @@ Install calico CNI using the `kubectl apply -f ` command:
 
 ```
 #
-# kubectl apply -f ../yaml/calico.yaml
+# kubectl apply -f yaml/calico.yaml
   ...
 
 ```

@@ -182,6 +182,10 @@ Use the `kubectl delete` command to delete this pod, and kuberntes will automati
 At this time, the IP address of the newly started fixed-ip-test-6d9b74fd4d-xjhek is still 10.188.0.216.
 
 <br>
+
+Here is another example of using `kube-ipam` fixed pod IP in `calico` CNI environment, <a href="docs/kubeipam-with-calico.md">please click here to view it</a>!
+
+<br>
 <br>
 
 # [5] View logs
