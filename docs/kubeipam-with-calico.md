@@ -6,7 +6,7 @@
 
 ## [1] Installing and configuring calico CNI
 
-### 1.1 Enable and configure CNI directory
+### 1.1 Enable and configure directory
 
 Please make sure that your kubelet takes the three correct parameters `network-plugin`, `cni-conf-dir` and `cni-bin-dir`. An example configuration of kubelet is given below:
 
