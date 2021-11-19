@@ -21,7 +21,16 @@ ExecStart=/usr/local/bin/kubelet \
 ...
 ```
 
-### 1.2 Installing calico CNI
+# 1.2 Install kube-ipam
+
+`kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
+```
+# wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
+# tar -zxvf kube-ipam-v0.2.0-x86.tgz
+# mv kube-ipam-v0.2.0-x86/kube-ipam /opt/cni/bin/kube-ipam
+```
+
+### 1.3 Installing calico CNI
 
 There is an example <a href="../yaml/calico.yaml">calico.yaml</a> in the yaml directory. We use this <a href="../yaml/calico.yaml">calico.yaml</a> to install calico CNI. Please note the settings of `kubeConfig`, `etcdConfig`, `subnet` and other parameters. `subnet` and `CALICO_IPV4POOL_CIDR` parameters should be set to the same value.
 
@@ -89,7 +98,7 @@ No IPv6 peers found.
 #
 ```
 
-### 1.3 About /etc/cni/net.d config
+### 1.4 About /etc/cni/net.d config
 
 After calico CNI is installed, you will see the following configuration information in `/etc/cni/net.d/10-calico.conflist` file:
 
