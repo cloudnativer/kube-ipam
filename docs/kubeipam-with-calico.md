@@ -241,6 +241,7 @@ Create a random IP pod using the `kubectl apply -f` command:
 
 Now you can see that there are two random-ip pod and one fixed-ip pod:
 
+```
 #
 # kubectl get pod -o wide 
 NAME                             READY   STATUS    RESTARTS   AGE    IP             NODE  
@@ -249,6 +250,7 @@ random-ip-test-7b75cbc65-ld9kb   1/1     Running   0          130m   10.244.0.24
 fixed-ip-test-88554b798-xcfpb    1/1     Running   0          131m   10.244.0.216  192.168.56.81
 #
 #
+```
 
 ### After rescheduling, the pod IP remains unchanged
 
