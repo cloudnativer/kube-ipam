@@ -6,8 +6,22 @@
 
 ## [1] Installing and configuring calico CNI
 
+### 1.1 Enable and configure CNI directory
 
-### 1.1 Installing calico CNI
+Please make sure that your kubelet takes the three correct parameters `network-plugin`, `cni-conf-dir` and `cni-bin-dir`. An example configuration of kubelet is given below:
+
+```
+# cat /etc/systemd/system/kubelet.service 
+...
+ExecStart=/usr/local/bin/kubelet \
+...
+  --network-plugin=cni \
+  --cni-conf-dir=/etc/cni/net.d \
+  --cni-bin-dir=/opt/cni/bin/ \
+...
+```
+
+### 1.2 Installing calico CNI
 
 There is an example <a href="../yaml/calico.yaml">calico.yaml</a> in the yaml directory. We use this <a href="../yaml/calico.yaml">calico.yaml</a> to install calico CNI. Please note the settings of `kubeConfig`, `etcdConfig`, `subnet` and other parameters. `subnet` and `CALICO_IPV4POOL_CIDR` parameters should be set to the same value.
 
@@ -75,7 +89,7 @@ No IPv6 peers found.
 #
 ```
 
-### 1.2 About /etc/cni/net.d config
+### 1.3 About /etc/cni/net.d config
 
 After calico CNI is installed, you will see the following configuration information in `/etc/cni/net.d/10-calico.conflist` file:
 
