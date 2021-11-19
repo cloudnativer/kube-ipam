@@ -30,6 +30,23 @@ Some scenarios often rely on IP addresses and need to use Pods with fixed IP add
 
 # [2]  Install kube-ipam
 
+## Enable and configure CNI directory
+
+Please make sure that your kubelet takes the three correct parameters `network-plugin`, `cni-conf-dir` and `cni-bin-dir`. An example configuration of kubelet is given below:
+
+```
+# cat /etc/systemd/system/kubelet.service 
+...
+ExecStart=/usr/local/bin/kubelet \
+...
+  --network-plugin=cni \
+  --cni-conf-dir=/etc/cni/net.d \
+  --cni-bin-dir=/opt/cni/bin/ \
+...
+```
+
+## Get and install kube-ipam
+
 `kube-ipam` binary program files can be obtained by <a href="docs/download.md">download</a> or <a href="docs/build.md">compile</a>, and copy the kube-ipam binary to the `/opt/cni/bin/` directory
 ```
 # wget https://github.com/cloudnativer/kube-ipam/releases/download/v0.2.0/kube-ipam-v0.2.0-x86.tgz
