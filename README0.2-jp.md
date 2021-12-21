@@ -100,16 +100,20 @@ ExecStart=/usr/local/bin/kubelet \
 * `type` (string, required): CNIプラグインの種類を記入します。例えば、macvlan、ipvlan、kube-router、bridge、calicoなどです（`Multius`と組み合わせてより多くのCNIプラグインをサポートすることもできます）。
 * `routes` (string, optional): コンテナの名前空間のルートリストに追加します。各ルーティングは、`dst`とオプションの`gw`フィールドを有するものである。`gw`を省略すると、「ゲートウェイ」の値が使用されます。
 * `resolvConf` (string, optional): ホスト上で解析され、DNS構成として返される`resov.co nf`ファイルパス。
+* `etcdConfig`：etcdアドレス情報の対象
+	* `etcdURL` (string, required): etcdのendpoint URLアドレスです。
+	* `etcdCertFile` (string, required): etcdのcertファイル。
+	* `etcdKeyFile` (string, required): etcdのkeyファイル。
+	* `etcdTrustedCAFileFile` (string, required): etcdのcaファイル。
+	* `kubeConfig` (string, required): kubernetesのcertファイル。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
 	* `subnet` (string, required): 割り当てられたCIDRブロックです。
 	* `rangeStart` (string, optional): `subnet`サブネットから配信されるIPアドレスは、デフォルトでは`subnet`サブネット内の「.2」というIPアドレスです。
 	* `rangeEnd` (string, optional): `subnet`子ネットの中から分配のIPアドレスを終わって、デフォルトは`subnet`子ネットの中の“.254”のこのIPアドレスです。
 	* `gateway` (string, optional): `subnet`サブネットから割り当てられたゲートウェイのIPアドレスは、デフォルトでは`subnet`サブネット内の「.1」というIPアドレスです。
-* `etcdConfig`：etcdアドレス情報の対象
-  * `etcdURL` (string, required): etcdのendpoint URLアドレスです。
-  * `etcdCertFile` (string, required): etcdのcertファイル。
-  * `etcdKeyFile` (string, required): etcdのkeyファイル。
-  * `etcdTrustedCAFileFile` (string, required): etcdのcaファイル。
+<br>
+
+ヒント: `ranges` は、<a href="docs/multiple-subnets.md">multiple-subnetsドキュメント</a>を参照して、複数のサブネットの構成フォーマットをサポートします。
 
 <br>
 <br>
