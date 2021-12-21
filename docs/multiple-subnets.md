@@ -1,6 +1,10 @@
 # multiple subnets
 
 `ranges` of `/etc/cni/net.d/1-kube-ipam.conf` can support the configuration format of multiple subnets.
+<br>
+If you have multiple subnets to configure, you can insert multiple `range` contents. 
+<br>
+Here are some examples for your reference.
 
 
 ## Example 1:
