@@ -114,7 +114,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 	* `gateway` (string, optional): IP inside of "subnet" to designate as the gateway. Defaults to ".1" IP inside of the "subnet" block.
 <br>
 
-Tips: `ranges` can support the filling format of multiple network segments. See YYY documentation for details.
+Tip: `ranges` can support the configuration format of multiple subnets. See <a href="docs/multiple-subnets.md">multiple-subnets documentation</a> for details.
 
 
 <br>
