@@ -101,17 +101,21 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 * `type` (string, required): fill in your CNI plug-in type, such as macvlan, ipvlan, kube-router, bridge, calico, etc.(it can also be combined with 'Multus' to support more CNI plug-ins)
 * `routes` (string, optional): list of routes to add to the container namespace. Each route is a dictionary with "dst" and optional "gw" fields. If "gw" is omitted, value of "gateway" will be used.
 * `resolvConf` (string, optional): Path to a `resolv.conf` on the host to parse and return as the DNS configuration
-* `ranges`, (array, required, nonempty) an array of arrays of range objects:
-	* `subnet` (string, required): CIDR block to allocate out of.
-	* `rangeStart` (string, optional): IP inside of "subnet" from which to start allocating addresses. Defaults to ".2" IP inside of the "subnet" block.
-	* `rangeEnd` (string, optional): IP inside of "subnet" with which to end allocating addresses. Defaults to ".254" IP inside of the "subnet" block for ipv4, ".255" for IPv6
-	* `gateway` (string, optional): IP inside of "subnet" to designate as the gateway. Defaults to ".1" IP inside of the "subnet" block.<br>
-    `ranges` can support the filling format of multiple network segments. See YYY documentation for details.
 * `etcdConfig`, an object of etcd address info
   * `etcdURL` (string, required): The URL of etcd
   * `etcdCertFile` (string, required): The cert file of etcd
   * `etcdKeyFile` (string, required): The key file of etcd
   * `etcdTrustedCAFileFile` (string, required): The ca file of etcd
+  * `kubeConfig` (string, required): The kubeconfig file of etcd
+* `ranges`, (array, required, nonempty) an array of arrays of range objects:
+	* `subnet` (string, required): CIDR block to allocate out of.
+	* `rangeStart` (string, optional): IP inside of "subnet" from which to start allocating addresses. Defaults to ".2" IP inside of the "subnet" block.
+	* `rangeEnd` (string, optional): IP inside of "subnet" with which to end allocating addresses. Defaults to ".254" IP inside of the "subnet" block for ipv4, ".255" for IPv6
+	* `gateway` (string, optional): IP inside of "subnet" to designate as the gateway. Defaults to ".1" IP inside of the "subnet" block.
+
+<br>
+
+`ranges` can support the filling format of multiple network segments. See YYY documentation for details.
 
 
 <br>
