@@ -114,7 +114,7 @@ ExecStart=/usr/local/bin/kubelet \
 	* `gateway` (string, optional): 从`subnet`子网内分配的网关IP地址，默认为`subnet`子网段内的“.1”这个IP地址。
 <br>
 
-提示：`ranges`可以支持多个子网的配置格式，详见<a href="docs/multiple-subnets.md">multiple-subnets 文档</a>。
+提示：`ranges`可以支持多个子网的配置格式，详见<a href="docs/multiple-subnets.md">multiple-subnets文档</a>。
 
 
 <br>
