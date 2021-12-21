@@ -63,9 +63,9 @@ Here are some examples for your reference.
                 }
             ],
             [{
-                    "subnet": "10.166.0.0/16",
-                    "rangeStart": "10.166.0.30",
-                    "rangeEnd": "10.166.0.200"
+                  "subnet": "10.166.0.0/16",
+                  "rangeStart": "10.166.0.30",
+                  "rangeEnd": "10.166.0.200"
             }]
         ]
 ```
