@@ -99,19 +99,23 @@ ExecStart=/usr/local/bin/kubelet \
 
 ## 3.2 配寘參數說明
 
-* `type` (string, required): 填写CNI插件的类型, 例如 macvlan、ipvlan、kube-router、bridge、calico等（還可以與`Multus`結合支持更多CNI挿件）。
-* `routes` (string, optional): 要添加到容器命名空间的路由列表。 每个路由都是一个带有“dst”和可选“gw”字段。 如果省略“gw”，将使用“网关”的值。
-* `resolvConf` (string, optional): 主机上要解析并作为 DNS 配置返回的 `resolv.conf` 文件路径。
-* `ranges`, (array, required, nonempty) an array of arrays of range objects:
-	* `subnet` (string, required): 要分配出去的 CIDR 块。
-	* `rangeStart` (string, optional): 从`subnet`子网内开始分配的IP地址，默认为`subnet`子网段内的“.2”这个IP地址。
-	* `rangeEnd` (string, optional): 从`subnet`子网内结束分配的IP地址，默认为`subnet`子网段内的“.254”这个IP地址。
-	* `gateway` (string, optional): 从`subnet`子网内分配的网关IP地址，默认为`subnet`子网段内的“.1”这个IP地址。
-* `etcdConfig`：etcd 地址信息的对象
-  * `etcdURL` (string, required): etcd的endpoint URL地址。
-  * `etcdCertFile` (string, required): etcd的cert文件。
-  * `etcdKeyFile` (string, required): etcd的key文件。
-  * `etcdTrustedCAFileFile` (string, required): etcd的ca文件。
+* `type`（string，required）：填寫CNI挿件的類型，例如macvlan、ipvlan、kube-router、bridge、calico等（還可以與`Multus`結合支持更多CNI挿件）。
+* `routes`（string，optional）：要添加到容器命名空間的路由清單。 每個路由都是一個帶有“dst”和可選“gw”欄位。 如果省略“gw”，將使用“閘道”的值。
+* `resolvConf`（string，optional）：主機上要解析並作為DNS配寘返回的`resolv. conf`檔案路徑。
+* `etcdConfig`:etcd地址資訊的對象
+	* `etcdURL`（string，required）：etcd的endpoint URL地址。
+	* `etcdCertFile`（string，required）：etcd的cert檔案。
+	* `etcdKeyFile`（string，required）：etcd的key檔案。
+	* `etcdTrustedCAFileFile`（string，required）：etcd的ca檔案。
+	* `kubeConfig`（string，required）：kubernetes集羣的kubeconfig檔案。
+* `ranges`，（array，required，nonempty）an array of arrays of range objects:
+	* `subnet`（string，required）：要分配出去的CIDR塊。
+	* `rangeStart`（string，optional）：從`subnet`子網內開始分配的IP地址，默認為`subnet`子網段內的“.2”這個IP地址。
+	* `rangeEnd`（string，optional）：從`subnet`子網內結束分配的IP地址，默認為`subnet`子網段內的“.254”這個IP地址。
+	* `gateway`（string，optional）：從`subnet`子網內分配的閘道IP地址，默認為`subnet`子網段內的“.1”這個IP地址。
+<br>
+
+提示：`ranges`可以支持多個子網的配寘格式，詳見<a href="docs/multiple-subnets.md">multiple-subnets檔案</a>。
 
 
 <br>
