@@ -106,7 +106,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
   * `etcdCertFile` (string, required): The cert file of etcd
   * `etcdKeyFile` (string, required): The key file of etcd
   * `etcdTrustedCAFileFile` (string, required): The ca file of etcd
-  * `kubeConfig` (string, required): The kubeconfig file of etcd
+  * `kubeConfig` (string, required): The kubeconfig file of kubernetes
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
 	* `subnet` (string, required): CIDR block to allocate out of.
 	* `rangeStart` (string, optional): IP inside of "subnet" from which to start allocating addresses. Defaults to ".2" IP inside of the "subnet" block.
