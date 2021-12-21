@@ -112,10 +112,8 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
 	* `rangeStart` (string, optional): IP inside of "subnet" from which to start allocating addresses. Defaults to ".2" IP inside of the "subnet" block.
 	* `rangeEnd` (string, optional): IP inside of "subnet" with which to end allocating addresses. Defaults to ".254" IP inside of the "subnet" block for ipv4, ".255" for IPv6
 	* `gateway` (string, optional): IP inside of "subnet" to designate as the gateway. Defaults to ".1" IP inside of the "subnet" block.
-
 <br>
-
-`ranges` can support the filling format of multiple network segments. See YYY documentation for details.
+    `ranges` can support the filling format of multiple network segments. See YYY documentation for details.
 
 
 <br>
