@@ -102,11 +102,11 @@ ExecStart=/usr/local/bin/kubelet \
 * `routes` (string, optional): 要添加到容器命名空间的路由列表。 每个路由都是一个带有“dst”和可选“gw”字段。 如果省略“gw”，将使用“网关”的值。
 * `resolvConf` (string, optional): 主机上要解析并作为 DNS 配置返回的 `resolv.conf` 文件路径。
 * `etcdConfig`：etcd 地址信息的对象
-  * `etcdURL` (string, required): etcd的endpoint URL地址。
-  * `etcdCertFile` (string, required): etcd的cert文件。
-  * `etcdKeyFile` (string, required): etcd的key文件。
-  * `etcdTrustedCAFileFile` (string, required): etcd的ca文件。
-  * `kubeConfig` (string, required): kubernetes集群的kubeconfig文件。
+	* `etcdURL` (string, required): etcd的endpoint URL地址。
+	* `etcdCertFile` (string, required): etcd的cert文件。
+	* `etcdKeyFile` (string, required): etcd的key文件。
+	* `etcdTrustedCAFileFile` (string, required): etcd的ca文件。
+	* `kubeConfig` (string, required): kubernetes集群的kubeconfig文件。
 * `ranges`, (array, required, nonempty) an array of arrays of range objects:
 	* `subnet` (string, required): 要分配出去的 CIDR 块。
 	* `rangeStart` (string, optional): 从`subnet`子网内开始分配的IP地址，默认为`subnet`子网段内的“.2”这个IP地址。
