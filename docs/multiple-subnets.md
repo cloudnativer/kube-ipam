@@ -19,7 +19,10 @@ Here are some examples for your reference.
                     "gateway": "10.188.0.1"
                 },
                 {
-                    "subnet": "10.199.0.0/16"
+                    "subnet": "10.199.0.0/16",
+                    "rangeStart": "10.199.0.10",
+                    "rangeEnd": "10.199.0.100",
+                    "gateway": "10.199.0.1"
                 }
             ]
         ]
@@ -37,9 +40,7 @@ Here are some examples for your reference.
                     "gateway": "10.188.0.1"
             }],
             [{
-                "subnet": "10.166.0.0/16",
-                "rangeStart": "10.166.0.30",
-                "rangeEnd": "10.166.0.200"
+                    "subnet": "10.166.0.0/16"
             }]
         ]
 ```
@@ -62,9 +63,9 @@ Here are some examples for your reference.
                 }
             ],
             [{
-                "subnet": "10.166.0.0/16",
-                "rangeStart": "10.166.0.30",
-                "rangeEnd": "10.166.0.200"
+                    "subnet": "10.166.0.0/16",
+                    "rangeStart": "10.166.0.30",
+                    "rangeEnd": "10.166.0.200"
             }]
         ]
 ```
