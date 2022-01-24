@@ -14,14 +14,18 @@ Here are some examples for your reference.
             [
                 {
                     "subnet": "10.188.0.0/16",
-                    "rangeStart": "10.188.0.10",
-                    "rangeEnd": "10.188.0.100",
+                    "fixedStart": "10.188.0.10",
+                    "fixedEnd": "10.188.3.155",
+                    "rangeStart": "10.188.3.156",
+                    "rangeEnd": "10.188.255.254",
                     "gateway": "10.188.0.1"
                 },
                 {
                     "subnet": "10.199.0.0/16",
-                    "rangeStart": "10.199.0.10",
-                    "rangeEnd": "10.199.0.100",
+                    "fixedStart": "10.199.0.10",
+                    "fixedEnd": "10.199.0.255",
+                    "rangeStart": "10.199.1.0",
+                    "rangeEnd": "10.199.255.254",
                     "gateway": "10.199.0.1"
                 }
             ]
@@ -35,8 +39,10 @@ Here are some examples for your reference.
 "ranges": [
             [{
                     "subnet": "10.188.0.0/16",
-                    "rangeStart": "10.188.0.10",
-                    "rangeEnd": "10.188.0.100",
+                    "fixedStart": "10.188.0.10",
+                    "fixedEnd": "10.188.0.255",
+                    "rangeStart": "10.188.1.0",
+                    "rangeEnd": "10.188.255.254",
                     "gateway": "10.188.0.1"
             }],
             [{
@@ -54,8 +60,8 @@ Here are some examples for your reference.
             [
                 {
                     "subnet": "10.188.0.0/16",
-                    "rangeStart": "10.188.0.10",
-                    "rangeEnd": "10.188.0.100",
+                    "rangeStart": "10.188.0.150",
+                    "rangeEnd": "10.188.255.254",
                     "gateway": "10.188.0.1"
                 },
                 {
@@ -64,8 +70,10 @@ Here are some examples for your reference.
             ],
             [{
                   "subnet": "10.166.0.0/16",
-                  "rangeStart": "10.166.0.30",
-                  "rangeEnd": "10.166.0.200"
+                  "fixedStart": "10.166.0.10",
+                  "fixedEnd": "10.166.0.200",
+                  "rangeStart": "10.166.0.201",
+                  "rangeEnd": "10.166.255.254"
             }]
         ]
 ```
