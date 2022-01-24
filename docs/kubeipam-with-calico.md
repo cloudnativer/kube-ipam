@@ -45,8 +45,10 @@ There is an example <a href="../yaml/calico.yaml">calico.yaml</a> in the yaml di
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/k8s-root-ca.pem"
                 },
                 "subnet": "10.244.0.0/16",
-                "rangeStart": "10.244.0.10",
-                "rangeEnd": "10.244.0.200",
+                "fixedStart": "10.244.0.10",
+                "fixedEnd": "10.244.0.255",
+                "rangeStart": "10.244.1.0",
+                "rangeEnd": "10.244.255.254",
 ...
 
             - name: CALICO_IPV4POOL_CIDR
@@ -128,8 +130,10 @@ After calico CNI is installed, you will see the following configuration informat
                         "etcdTrustedCAFileFile": "/etc/kubernetes/ssl/k8s-root-ca.pem"
                 },
                 "subnet": "10.244.0.0/16",
-                "rangeStart": "10.244.0.10",
-                "rangeEnd": "10.244.0.200",
+                "fixedStart": "10.244.0.10",
+                "fixedEnd": "10.244.0.255",
+                "rangeStart": "10.244.1.0",
+                "rangeEnd": "10.244.255.254",
                 "gateway": "10.244.0.1",
                 "routes": [{
                         "dst": "0.0.0.0/0"
@@ -264,8 +268,8 @@ Now you can see that there are two random-ip pod and one fixed-ip pod:
 #
 # kubectl get pod -o wide 
 NAME                             READY   STATUS    RESTARTS   AGE    IP             NODE  
-random-ip-test-59df9c4fdd-hnfxm  1/1     Running   0          128m   10.244.0.23   192.168.56.82
-random-ip-test-7b75cbc65-ld9kb   1/1     Running   0          130m   10.244.0.24   192.168.56.83
+random-ip-test-59df9c4fdd-hnfxm  1/1     Running   0          128m   10.244.5.23   192.168.56.82
+random-ip-test-7b75cbc65-ld9kb   1/1     Running   0          130m   10.244.5.24   192.168.56.83
 fixed-ip-test-88554b798-xcfpb    1/1     Running   0          131m   10.244.0.216  192.168.56.81
 #
 #
@@ -280,8 +284,8 @@ Use the `kubectl delete` command to delete fixed-ip pod, and kuberntes will auto
 #
 # kubectl get pod -o wide                  
 NAME                             READY   STATUS    RESTARTS   AGE    IP             NODE
-random-ip-test-59df9c4fdd-hnfxm  1/1     Running   0          128m   10.244.0.23   192.168.56.82
-random-ip-test-7b75cbc65-ld9kb   1/1     Running   0          130m   10.244.0.24   192.168.56.83
+random-ip-test-59df9c4fdd-hnfxm  1/1     Running   0          128m   10.244.5.23   192.168.56.82
+random-ip-test-7b75cbc65-ld9kb   1/1     Running   0          130m   10.244.5.24   192.168.56.83
 fixed-ip-test-88554b798-8ukle    1/1     Running   0          1m     10.244.0.216  192.168.56.82
 #
 ```
