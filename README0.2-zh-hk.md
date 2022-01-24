@@ -73,7 +73,7 @@ ExecStart=/usr/local/bin/kubelet \
         "cniVersion":"0.3.1",
         "name": "k8snetwork",
         "type": "macvlan",
-        "master": "eth1",
+        "master": "eth0",
         "ipam": {
                 "name": "kube-subnet",
                 "type": "kube-ipam",
