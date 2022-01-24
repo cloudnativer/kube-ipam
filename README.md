@@ -71,7 +71,7 @@ Edit `/etc/cni/net.d/1-kube-ipam.conf` files on all kubernetes node servers.
         "cniVersion":"0.3.1",
         "name": "k8snetwork",
         "type": "macvlan",
-        "master": "eth1",
+        "master": "eth0",
         "ipam": {
                 "name": "kube-subnet",
                 "type": "kube-ipam",
