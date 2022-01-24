@@ -85,8 +85,10 @@ ExecStart=/usr/local/bin/kubelet \
                         "etcdTrustedCAFileFile": "/etc/kubernetes/pki/ca.pem"
                 },
                 "subnet": "10.188.0.0/16",
-                "rangeStart": "10.188.0.10",
-                "rangeEnd": "10.188.0.200",
+		"fixedStart": "10.188.0.10",
+		"fixedEnd": "10.188.0.255",
+                "rangeStart": "10.188.1.0",
+                "rangeEnd": "10.188.255.254",
                 "gateway": "10.188.0.1",
                 "routes": [{
                         "dst": "0.0.0.0/0"
